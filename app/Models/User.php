@@ -17,4 +17,4 @@ class User extends Model
         return $this->belongsTo(Role::class, 'role_id');
     }
 }
-//each users belongs to only one role
+//each users belongs to  one role
