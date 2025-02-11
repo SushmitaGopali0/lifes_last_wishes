@@ -11,6 +11,6 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::resource('users', UserController::class);
-Route::resource('roles', RoleController::class);
+Route::resource('allusers', UserController::class)->names('users');
+Route::resource('allroles', RoleController::class)->names('roles');
 
