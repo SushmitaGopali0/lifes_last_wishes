@@ -3,9 +3,9 @@
     <div class="col-md-6">
         <div class="card-body">
             <div class="template-demo">
-                <a href="{{ route('admin.testimonial.create') }}"><button type="button"
+                <a href="{{ route('admin.newsletter.create') }}"><button type="button"
                         class="btn btn-primary btn-rounded btn-fw">Add
-                        Testimonial</button></a>
+                        Newsletter</button></a>
             </div>
         </div>
     </div>
@@ -14,35 +14,39 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Testimonial Table</h4>
+                        <h4 class="card-title">Newsletter Table</h4>
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>User Email</th>
-                                        <th>Title</th>
-                                        <th>Status</th>
+                                        <th>Email</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Confirmed</th>
+                                        <th>Subscribed</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($testimonial as $t)
+                                    @foreach ($newsletter as $n)
                                         <tr>
-                                            <td>{{ $t->email }}</td>
-                                            <td>{{ $t->title }}</td>
-                                            <td>{{ ucfirst($t->status) }}</td>
-                                            <td><a href="{{ route('admin.testimonial.show', ['id' => $t->id]) }}">
+                                            <td>{{ $n->email }}</td>
+                                            <td>{{ $n->firstname }}</td>
+                                            <td>{{ $n->lastname }}</td>
+                                            <td>{{ ucfirst($n->confirmed) }}</td>
+                                            <td>{{ ucfirst($n->subscribed) }}</td>
+                                            <td><a href="{{ route('admin.newsletter.show', ['id' => $n->id]) }}">
                                                     <i class="mdi mdi-view-list" style="font-size: 25px; color:blue"></i>
                                                 </a>
-                                                <a href="{{ route('admin.testimonial.edit', ['id' => $t->id]) }}">
+                                                <a href="{{ route('admin.newsletter.edit', ['id' => $n->id]) }}">
                                                     <i class="mdi mdi-pencil-box-outline"
                                                         style="font-size: 25px; color:green"></i>
                                                 </a>
                                                 <!-- Delete Form -->
-                                                <form action="{{ route('admin.testimonial.destroy', ['id' => $t->id]) }}" method="POST" style="display:inline;">
+                                                <form action="{{ route('admin.newsletter.destroy', ['id' => $n->id]) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this testimonial?')" style="background: none; border: none; padding: 0;">
+                                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this newsletter?')" style="background: none; border: none; padding: 0;">
                                                         <i class="mdi mdi-delete" style="font-size: 25px; color:red"></i>
                                                     </button>
                                                 </form>

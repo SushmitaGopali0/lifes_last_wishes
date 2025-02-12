@@ -14,7 +14,8 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        return view('admin.testimonials.records.index');
+        $testimonial = Testimonial::all();
+        return view('admin.testimonials.records.index', compact('testimonial'));
     }
 
     /**
@@ -30,7 +31,7 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $request->validate([
             'email' => 'required|email',
             'title' => 'required|string|max:255',
@@ -42,7 +43,7 @@ class TestimonialController extends Controller
             'status' => 'required'
         ]);
 
-        try{
+        try {
             DB::beginTransaction();
             Testimonial::create([
                 'email' => $request->email,
@@ -52,14 +53,14 @@ class TestimonialController extends Controller
                 'company' => $request->company,
                 'website' => $request->website,
                 'is_featured' => (int) $request->is_featured ? '1' : '0',
-                'status' => (int) $request->status,
+                'status' => $request->status,
             ]);
 
             DB::commit();
             return redirect()->route('admin.testimonial.index')->with('success', 'Testimonial is stored');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Something went wrong. Please try again.'.$e->getMessage());
+            return back()->with('error', 'Something went wrong. Please try again.' . $e->getMessage());
         }
     }
 
@@ -68,7 +69,8 @@ class TestimonialController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $testimonial = Testimonial::findOrFail($id);
+        return view('admin.testimonials.records.show', compact('testimonial'));
     }
 
     /**
@@ -76,7 +78,8 @@ class TestimonialController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $testimonial = Testimonial::findOrFail($id);
+        return view('admin.testimonials.records.edit', compact('testimonial'));
     }
 
     /**
@@ -84,7 +87,37 @@ class TestimonialController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'email' => 'required|email',
+            'title' => 'required|string|max:255',
+            'message' => 'required|string',
+            'job_title' => 'nullable|string',
+            'company' => 'nullable|string',
+            'website' => 'nullable|string',
+            'is_featured' => 'required',
+            'status' => 'required'
+        ]);
+
+        try {
+            DB::beginTransaction();
+            $testimonial = Testimonial::where('id', $id)->firstOrFail();
+            $testimonial->email = $request->email;
+            $testimonial->title = $request->title;
+            $testimonial->message = $request->message;
+            $testimonial->job_title = $request->job_title;
+            $testimonial->company = $request->company;
+            $testimonial->website = $request->website;
+            $testimonial->is_featured = (int) $request->is_featured ? '1' : '0';
+            $testimonial->status = $request->status;
+            $testimonial->save();
+
+            DB::commit();
+            return redirect()->route('admin.testimonial.index')->with('success', 'Testimonial is updated');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong. Please try again.' . $e->getMessage());
+        }
     }
 
     /**
@@ -92,6 +125,15 @@ class TestimonialController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try{
+            DB::beginTransaction();
+            $testimonial = Testimonial::where('id', $id)->firstOrFail();
+            $testimonial->delete();
+            DB::commit();
+            return back()->with('success', 'Testimonial id deleted.');
+        }catch(\Exception $e){
+            DB::rollBack();
+            return back()->with('error', 'Testimonial deletion is failed. Please try again.' . $e->getMessage());
+        }
     }
 }

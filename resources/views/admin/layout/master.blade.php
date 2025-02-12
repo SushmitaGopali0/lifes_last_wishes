@@ -15,6 +15,9 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}" />
 
+    <!-- toastr css -->
+    <link rel="stylesheet" href="/css/toastr.min.css">
+
     @stack('css')
 
 </head>
@@ -61,8 +64,29 @@
     <script src="{{ asset('backend/js/chart.js') }}"></script>
     <!-- End custom js for this page-->
 
+    <!-- toastr -->
+    <script src="/js/toastr.min.js" type="text/javascript"></script>
     @stack('js')
 
+    <script>
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}");
+        @endif
+        @if(Session::has('info'))
+            toastr.info("{{ Session::get('info') }}");
+        @endif
+        @if(Session::has('warning'))
+            toastr.warning("{{ Session::get('warning') }}");
+        @endif
+        @if(Session::has('error'))
+            toastr.error("{{ Session::get('error') }}");
+        @endif
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}");
+            @endforeach
+        @endif
+    </script>
 </body>
 
 </html>

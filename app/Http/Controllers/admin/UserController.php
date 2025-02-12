@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('role')->get(); // Fetch users with their role
-        return view('users.index', compact('users'));
+        return view('admin.user-management.users.index', compact('users'));
     }
 
     /**
@@ -24,7 +25,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all(); // Fetch all roles
-        return view('users.create', compact('roles'));
+        return view('admin.user-management.users.create', compact('roles'));
     }
 
     /**
@@ -44,7 +45,7 @@ class UserController extends Controller
 
         User::create($data);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('admin.user-management.users.index')->with('success', 'User created successfully.');
     }
 
     /**
@@ -53,7 +54,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::findOrFail($id);
-        return view("users.singleuserview", compact("user")); 
+        return view("admin.user-management.users.singleuserview", compact("user"));
     }
 
     /**
@@ -63,7 +64,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id); // Fetch the user
         $roles = Role::all();
-        return view('users.edit', compact('user', 'roles'));
+        return view('admin.user-management.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -84,12 +85,12 @@ class UserController extends Controller
         if (!empty($request->password)) {
             $data['password'] = Hash::make($request->password);
         } else {
-            unset($data['password']); 
+            unset($data['password']);
         }
 
         $user->update($data);
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('admin.user-management.users.index')->with('success', 'User updated successfully.');
     }
 
     /**
@@ -99,6 +100,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('admin.user-management.users.index')->with('success', 'User deleted successfully.');
     }
 }
