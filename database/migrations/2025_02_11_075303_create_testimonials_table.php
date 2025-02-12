@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('company')->nullable();
             $table->string('website')->nullable();
             $table->boolean('is_featured')->default(0);
-            $table->boolean('status')->default(0)->comment('Pending = 0, Approved = 1');
+            $table->string('status')->default('pending')->comment('Pending = 0, Approved = 1');
             $table->timestamps();
         });
     }

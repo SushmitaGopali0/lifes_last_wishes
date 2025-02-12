@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
+
+use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -9,7 +11,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all(); // Fetch all roles
-        return view('roles.index', compact('roles'));
+        return view('admin.user-management.roles.index', compact('roles'));
     }
 
     /**
@@ -18,7 +20,7 @@ class RoleController extends Controller
     public function show($id)
     {
         $role = Role::findOrFail($id);
-        return view('roles.show', compact('role'));
+        return view('admin.user-management.roles.show', compact('role'));
     }
 }
 
