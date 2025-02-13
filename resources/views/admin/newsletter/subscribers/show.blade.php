@@ -1,4 +1,14 @@
 @extends('admin.layout.master')
+@push('css')
+<style>
+.form-check-input:disabled {
+    opacity: 1 !important; /*Restore full opacity*/
+    filter: none !important; /* Remove any default grayscale effect */
+    cursor: not-allowed; /* Keep the disabled cursor */
+}
+
+</style>
+@endpush
 @section('body')
 
 <div class="col-md-6">
@@ -65,10 +75,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                            <button type="submit" class="btn btn-primary me-2">Create</button>
-                            <button type="reset" class="btn btn-light">Reset</button>
                         </form>
                     </div>
                 </div>
