@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.layout.master')
 
-@section('content')
+@section('body')
 <div class="container">
     <h2>User Details</h2>
 
