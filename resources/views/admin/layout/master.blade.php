@@ -17,6 +17,8 @@
 
     <!-- toastr css -->
     <link rel="stylesheet" href="/css/toastr.min.css">
+    <link href="{{ asset('toastcss.css') }}" rel="stylesheet">
+
 
     @stack('css')
 
@@ -66,9 +68,27 @@
 
     <!-- toastr -->
     <script src="/js/toastr.min.js" type="text/javascript"></script>
+    <script src="{{ asset('toastjs.js') }}"></script>
     @stack('js')
 
     <script>
+        toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right", // Position of the toast message
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300", // Show duration in milliseconds
+        "hideDuration": "1000", // Hide duration in milliseconds
+        "timeOut": "5000", // Time the toast stays visible (milliseconds)
+        "extendedTimeOut": "1000", // Additional time after mouse hover (milliseconds)
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn", // Show method
+        "hideMethod": "fadeOut" // Hide method
+    };
         @if(Session::has('success'))
             toastr.success("{{ Session::get('success') }}");
         @endif

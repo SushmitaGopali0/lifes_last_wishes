@@ -14,7 +14,7 @@ class NewsletterController extends Controller
      */
     public function index()
     {
-        $newsletter = Newsletter::all();
+        $newsletter = Newsletter::paginate(10);
         return view('admin.newsletter.subscribers.index', compact('newsletter'));
     }
 
@@ -33,10 +33,10 @@ class NewsletterController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'fname' => 'required|string',
-            'lname' => 'required|string',
-            'confirmed' => 'required',
-            'subscribed' => 'required'
+            'fname' => 'required|regex:/^[a-zA-Z\s]+$/u',
+            'lname' => 'required|regex:/^[a-zA-Z\s]+$/u',
+            'confirmed' => 'required|in:yes,no',
+            'subscribed' => 'required|in:yes,no'
         ]);
 
         try {
@@ -81,10 +81,10 @@ class NewsletterController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'fname' => 'required|string',
-            'lname' => 'required|string',
-            'confirmed' => 'required',
-            'subscribed' => 'required'
+            'fname' => 'required|regex:/^[a-zA-Z\s]+$/u',
+            'lname' => 'required|regex:/^[a-zA-Z\s]+$/u',
+            'confirmed' => 'required|in:yes,no',
+            'subscribed' => 'required|in:yes,no'
         ]);
         try {
             DB::beginTransaction();
@@ -115,7 +115,7 @@ class NewsletterController extends Controller
             $newsletter = Newsletter::where('id', $id)->firstOrFail();
             $newsletter->delete();
             DB::commit();
-            return back()->with('success', 'Newsletter id deleted.');
+            return back()->with('success', 'Newsletter is deleted.');
         }catch(\Exception $e){
             DB::rollBack();
             return back()->with('error', 'Newsletter deletion is failed. Please try again.' . $e->getMessage());

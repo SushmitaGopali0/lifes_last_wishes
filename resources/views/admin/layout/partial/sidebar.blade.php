@@ -20,6 +20,22 @@
         </div>
       </li>
       <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+          <i class="mdi mdi-content-copy menu-icon"></i>
+          <span class="menu-title">Content</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="ui-basic">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('users.index') }}">Posts</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}">Post Categories</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}">Pages</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.page-category.index') }}">Page Categories</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}">Page Settings</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
           <i class="mdi mdi-email menu-icon"></i>
           <span class="menu-title">Newsletter</span>

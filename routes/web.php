@@ -4,6 +4,8 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\NewsletterController;
+use App\Http\Controllers\admin\PageCategoryController;
+use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\TestimonialController;
 use App\Http\Controllers\admin\UserManagementController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +45,24 @@ Route::prefix('/admin')->group(function(){
     Route::get('/newsletter/edit/{id}', [NewsletterController::class, 'edit'])->name('admin.newsletter.edit');
     Route::put('/newsletter/{id}', [NewsletterController::class, 'update'])->name('admin.newsletter.update');
     Route::delete('/newsletter/{id}', [NewsletterController::class, 'destroy'])->name('admin.newsletter.destroy');
+
+    //Page Category
+    Route::get('/page-category', [PageCategoryController::class, 'index'])->name('admin.page-category.index');
+    Route::get('/page-category/create', [PageCategoryController::class, 'create'])->name('admin.page-category.create');
+    Route::post('/page-category', [PageCategoryController::class, 'store'])->name('admin.page-category.store');
+    Route::get('/page-category/show/{id}', [PageCategoryController::class, 'show'])->name('admin.page-category.show');
+    Route::get('/page-category/edit/{id}', [PageCategoryController::class, 'edit'])->name('admin.page-category.edit');
+    Route::put('/page-category/{id}', [PageCategoryController::class, 'update'])->name('admin.page-category.update');
+    Route::delete('/page-category/{id}', [PageCategoryController::class, 'destroy'])->name('admin.page-category.destroy');
+
+    //Page 
+    Route::get('/page', [PageController::class, 'index'])->name('admin.page.index');
+    Route::get('/page/create', [PageController::class, 'create'])->name('admin.page.create');
+    Route::post('/page', [PageController::class, 'store'])->name('admin.page.store');
+    Route::get('/page/show/{id}', [PageController::class, 'show'])->name('admin.page.show');
+    Route::get('/page/edit/{id}', [PageController::class, 'edit'])->name('admin.page.edit');
+    Route::put('/page/{id}', [PageController::class, 'update'])->name('admin.page.update');
+    Route::delete('/page/{id}', [PageController::class, 'destroy'])->name('admin.page.destroy');
 
     // //User management
     // Route::get('/user-management', [UserManagementController::class, 'index'])->name('admin.user-management.index');

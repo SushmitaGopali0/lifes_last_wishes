@@ -14,7 +14,7 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonial = Testimonial::all();
+        $testimonial = Testimonial::paginate(10);
         return view('admin.testimonials.records.index', compact('testimonial'));
     }
 
@@ -40,7 +40,7 @@ class TestimonialController extends Controller
             'company' => 'nullable|string',
             'website' => 'nullable|string',
             'is_featured' => 'required',
-            'status' => 'required'
+            'status' => 'required|in:pending,approved'
         ]);
 
         try {
@@ -96,7 +96,7 @@ class TestimonialController extends Controller
             'company' => 'nullable|string',
             'website' => 'nullable|string',
             'is_featured' => 'required',
-            'status' => 'required'
+            'status' => 'required|in:pending,approved'
         ]);
 
         try {

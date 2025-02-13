@@ -23,7 +23,7 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Newsletter Store form </h4>
+                        <h4 class="card-title">Newsletter View page </h4>
                         <form class="forms-sample" method="POST" action="#">
                             @csrf
                             <div class="form-group">

@@ -51,8 +51,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
-
                         </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        {{ $testimonial->links() }}
                     </div>
                 </div>
             </div>
