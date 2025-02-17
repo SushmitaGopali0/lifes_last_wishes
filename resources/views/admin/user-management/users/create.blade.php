@@ -32,8 +32,8 @@
                                 name="password">
                         </div>
                         <div class="form-group">
-                            <label for="firstCategory">Roles</label>
-                            <select class="form-select" name="category_first_level_id" id="firstCategory">
+                            <label for="roleid">Roles</label>
+                            <select class="form-select" name="role_id" id="role_id">
                                 <option value="">Select Role</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->id }}">{{ $role->display_name }}</option>

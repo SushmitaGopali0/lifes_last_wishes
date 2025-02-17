@@ -19,27 +19,29 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>User Email</th>
                                         <th>Title</th>
+                                        <th>Slug</th>
+                                        <th>Page Categories</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($testimonial as $t)
+                                    @foreach ($page as $p)
                                         <tr>
-                                            <td>{{ $t->email }}</td>
-                                            <td>{{ $t->title }}</td>
-                                            <td>{{ ucfirst($t->status) }}</td>
-                                            <td><a href="{{ route('admin.testimonial.show', ['id' => $t->id]) }}">
+                                            <td>{{ $p->title }}</td>
+                                            <td>{{ $p->slug }}</td>
+                                            <td>{{ $p->pagecategory->name ?? '' }}</td>
+                                            <td>{{ ucfirst($p->status) }}</td>
+                                            <td><a href="{{ route('admin.page.show', ['id' => $p->id]) }}">
                                                     <i class="mdi mdi-view-list" style="font-size: 25px; color:blue"></i>
                                                 </a>
-                                                <a href="{{ route('admin.testimonial.edit', ['id' => $t->id]) }}">
+                                                <a href="{{ route('admin.page.edit', ['id' => $p->id]) }}">
                                                     <i class="mdi mdi-pencil-box-outline"
                                                         style="font-size: 25px; color:green"></i>
                                                 </a>
                                                 <!-- Delete Form -->
-                                                <form action="{{ route('admin.testimonial.destroy', ['id' => $t->id]) }}" method="POST" style="display:inline;">
+                                                <form action="{{ route('admin.page.destroy', ['id' => $p->id]) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" onclick="return confirm('Are you sure you want to delete this testimonial?')" style="background: none; border: none; padding: 0;">
@@ -54,7 +56,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        {{ $testimonial->links() }}
+                        {{-- {{ $testimonial->links() }} --}}
                     </div>
                 </div>
             </div>
