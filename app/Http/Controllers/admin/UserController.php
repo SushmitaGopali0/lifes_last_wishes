@@ -23,7 +23,7 @@ class UserController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
+    { 
         $roles = Role::all(); // Fetch all roles
         return view('admin.user-management.users.create', compact('roles'));
     }
@@ -39,7 +39,7 @@ class UserController extends Controller
             'password' => 'required|min:6',
             'role_id' => 'required|',
         ]);
-
+        
         $data = $request->all();
         $data['password'] = Hash::make($request->password); // Hash the password
 
