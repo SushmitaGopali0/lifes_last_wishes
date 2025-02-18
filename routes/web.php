@@ -4,11 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\UserController;
-use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\NewsletterController;
-use App\Http\Controllers\admin\TestimonialController;
 use App\Http\Controllers\admin\FormGroupController;
+use App\Http\Controllers\admin\NewsletterController;
+use App\Http\Controllers\admin\PermissionController;
+use App\Http\Controllers\admin\FormElementController;
+use App\Http\Controllers\admin\TestimonialController;
 
 
 Route::get('/', function () {
@@ -19,14 +20,15 @@ Route::get('/login', function () {
 });
 
 
-
-
 //users, roles, and permissions using resource route
 Route::prefix('/admin')->group(function(){
 Route::resource('allusers', UserController::class)->names('users');
 Route::resource('allroles', RoleController::class)->names('roles');
 Route::resource('allpermissions', PermissionController::class)->names('permissions');
 Route::resource('allformgroups', FormGroupController::class)->names('formgroups');
+Route::get('/formgroups/{formgroup}/customize', [FormGroupController::class, 'customize'])->name('formgroups.customize');
+Route::resource('allformelements', FormElementController::class)->names('formelements');
+
 });
 
    Route::prefix('/admin')->group(function(){
