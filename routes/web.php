@@ -4,20 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\UserController;
-<<<<<<< HEAD
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\FormGroupController;
 use App\Http\Controllers\admin\NewsletterController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\FormElementController;
 use App\Http\Controllers\admin\TestimonialController;
-=======
-use App\Http\Controllers\admin\PermissionController;
-use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\NewsletterController;
-use App\Http\Controllers\admin\TestimonialController;
-use App\Http\Controllers\admin\FormGroupController;
->>>>>>> 466dd91ad56896d83cad3daeffb0c8e14acdff39
 
 
 Route::get('/', function () {
@@ -28,23 +20,15 @@ Route::get('/login', function () {
 });
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 466dd91ad56896d83cad3daeffb0c8e14acdff39
 //users, roles, and permissions using resource route
 Route::prefix('/admin')->group(function(){
 Route::resource('allusers', UserController::class)->names('users');
 Route::resource('allroles', RoleController::class)->names('roles');
 Route::resource('allpermissions', PermissionController::class)->names('permissions');
 Route::resource('allformgroups', FormGroupController::class)->names('formgroups');
-<<<<<<< HEAD
 Route::get('/formgroups/{formgroup}/customize', [FormGroupController::class, 'customize'])->name('formgroups.customize');
 Route::resource('allformelements', FormElementController::class)->names('formelements');
 
-=======
->>>>>>> 466dd91ad56896d83cad3daeffb0c8e14acdff39
 });
 
    Route::prefix('/admin')->group(function(){
@@ -66,11 +50,5 @@ Route::get('/newsletter/show/{id}', [NewsletterController::class, 'show'])->name
 Route::get('/newsletter/edit/{id}', [NewsletterController::class, 'edit'])->name('admin.newsletter.edit');
 Route::put('/newsletter/{id}', [NewsletterController::class, 'update'])->name('admin.newsletter.update');
 Route::delete('/newsletter/{id}', [NewsletterController::class, 'destroy'])->name('admin.newsletter.destroy');
-<<<<<<< HEAD
 
 });
-=======
-
-
-});
->>>>>>> 466dd91ad56896d83cad3daeffb0c8e14acdff39
