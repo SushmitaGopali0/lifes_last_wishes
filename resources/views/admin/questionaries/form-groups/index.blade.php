@@ -34,7 +34,7 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                     <button class="btn btn-info">Preview</button>
-                    <button class="btn btn-info">Customize</button>
+                    <a href="{{ route('formgroups.customize', $formGroup->id) }}" class="btn btn-info">Customize</a>
                     <button class="btn btn-secondary">Conditions</button>
                 </td>
             </tr>

@@ -51,5 +51,4 @@ Route::get('/newsletter/edit/{id}', [NewsletterController::class, 'edit'])->name
 Route::put('/newsletter/{id}', [NewsletterController::class, 'update'])->name('admin.newsletter.update');
 Route::delete('/newsletter/{id}', [NewsletterController::class, 'destroy'])->name('admin.newsletter.destroy');
 
-
 });

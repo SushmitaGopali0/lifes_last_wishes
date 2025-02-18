@@ -13,6 +13,14 @@ class FormGroupController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function customize($id)
+     {
+         $formGroup = FormGroup::with('elements')->findOrFail($id);
+         return view('admin.questionaries.form-groups.customize.index', compact('formGroup'));
+     }
+     
+
     public function index()
     {
     $formGroups = FormGroup::all();
