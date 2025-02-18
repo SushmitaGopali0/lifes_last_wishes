@@ -34,7 +34,11 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                     <button class="btn btn-info">Preview</button>
+<<<<<<< HEAD
                     <a href="{{ route('formgroups.customize', $formGroup->id) }}" class="btn btn-info">Customize</a>
+=======
+                    <button class="btn btn-info">Customize</button>
+>>>>>>> 466dd91ad56896d83cad3daeffb0c8e14acdff39
                     <button class="btn btn-secondary">Conditions</button>
                 </td>
             </tr>

@@ -1,5 +1,5 @@
-<?php
 
+<<<<<<<< HEAD:app/Http/Controllers/admin/PermissionController.php
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
@@ -85,3 +85,5 @@ class PermissionController extends Controller
         //
     }
 }
+========
+>>>>>>>> 466dd91ad56896d83cad3daeffb0c8e14acdff39:app/Http/Controllers/PermissionController.php

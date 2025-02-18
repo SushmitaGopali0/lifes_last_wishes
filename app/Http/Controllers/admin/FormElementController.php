@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use App\Models\FormGroup;
 use App\Models\FormElement;
 
@@ -45,3 +46,10 @@ public function edit($id)
     return response()->json($formElement);
 }
 }
+=======
+
+class FormElementController extends Controller
+{
+    //
+}
+>>>>>>> 466dd91ad56896d83cad3daeffb0c8e14acdff39
