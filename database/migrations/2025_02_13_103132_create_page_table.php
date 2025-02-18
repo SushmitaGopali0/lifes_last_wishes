@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('excerpt');
             $table->longText('body');
             $table->string('image');
-            $table->text('meta_description');
-            $table->text('meta_keywords');
+            $table->text('meta_description')->nullable();
+            $table->text('meta_keywords')->nullable();
             $table->string('status')->default('active');
             $table->timestamps();
         });

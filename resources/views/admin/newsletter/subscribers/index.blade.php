@@ -19,6 +19,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Email</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
@@ -30,6 +31,7 @@
                                 <tbody>
                                     @foreach ($newsletter as $n)
                                         <tr>
+                                            <td><input type="checkbox" class="sub_chk" data-id="{{$n->id}}"></td>
                                             <td>{{ $n->email }}</td>
                                             <td>{{ $n->firstname }}</td>
                                             <td>{{ $n->lastname }}</td>

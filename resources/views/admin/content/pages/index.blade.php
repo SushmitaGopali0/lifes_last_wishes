@@ -19,6 +19,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Title</th>
                                         <th>Slug</th>
                                         <th>Page Categories</th>
@@ -29,6 +30,7 @@
                                 <tbody>
                                     @foreach ($page as $p)
                                         <tr>
+                                            <td><input type="checkbox" class="sub_chk" data-id="{{$p->id}}"></td>
                                             <td>{{ $p->title }}</td>
                                             <td>{{ $p->slug }}</td>
                                             <td>{{ $p->pagecategory->name ?? '' }}</td>
@@ -44,7 +46,7 @@
                                                 <form action="{{ route('admin.page.destroy', ['id' => $p->id]) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this testimonial?')" style="background: none; border: none; padding: 0;">
+                                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this page?')" style="background: none; border: none; padding: 0;">
                                                         <i class="mdi mdi-delete" style="font-size: 25px; color:red"></i>
                                                     </button>
                                                 </form>
@@ -56,7 +58,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        {{-- {{ $testimonial->links() }} --}}
+                        {{ $page->links() }}
                     </div>
                 </div>
             </div>

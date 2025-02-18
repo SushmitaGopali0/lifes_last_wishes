@@ -104,10 +104,12 @@ class PageCategoryController extends Controller
             $pagecategory = PageCategory::where('id', $id)->firstOrFail();
             $pagecategory->delete();
             DB::commit();
-            return back()->with('success', 'Page Category id deleted.');
+            return back()->with('success', 'Page Category is deleted.');
         }catch(\Exception $e){
             DB::rollBack();
             return back()->with('error', 'Page category deletion is failed. Please try again.' . $e->getMessage());
         }
     }
+
+
 }

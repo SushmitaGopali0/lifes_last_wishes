@@ -6,6 +6,8 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\NewsletterController;
 use App\Http\Controllers\admin\PageCategoryController;
 use App\Http\Controllers\admin\PageController;
+use App\Http\Controllers\admin\PostCategoryController;
+use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\admin\TestimonialController;
 use App\Http\Controllers\admin\UserManagementController;
 use Illuminate\Support\Facades\Route;
@@ -55,7 +57,7 @@ Route::prefix('/admin')->group(function(){
     Route::put('/page-category/{id}', [PageCategoryController::class, 'update'])->name('admin.page-category.update');
     Route::delete('/page-category/{id}', [PageCategoryController::class, 'destroy'])->name('admin.page-category.destroy');
 
-    //Page 
+    //Page
     Route::get('/page', [PageController::class, 'index'])->name('admin.page.index');
     Route::get('/page/create', [PageController::class, 'create'])->name('admin.page.create');
     Route::post('/page', [PageController::class, 'store'])->name('admin.page.store');
@@ -63,6 +65,24 @@ Route::prefix('/admin')->group(function(){
     Route::get('/page/edit/{id}', [PageController::class, 'edit'])->name('admin.page.edit');
     Route::put('/page/{id}', [PageController::class, 'update'])->name('admin.page.update');
     Route::delete('/page/{id}', [PageController::class, 'destroy'])->name('admin.page.destroy');
+
+    //Post Categories
+    Route::get('/post-category', [PostCategoryController::class, 'index'])->name('admin.post-category.index');
+    Route::get('/post-category/create', [PostCategoryController::class, 'create'])->name('admin.post-category.create');
+    Route::post('/post-category', [PostCategoryController::class, 'store'])->name('admin.post-category.store');
+    Route::get('/post-category/show/{id}', [PostCategoryController::class, 'show'])->name('admin.post-category.show');
+    Route::get('/post-category/edit/{id}', [PostCategoryController::class, 'edit'])->name('admin.post-category.edit');
+    Route::put('/post-category/{id}', [PostCategoryController::class, 'update'])->name('admin.post-category.update');
+    Route::delete('/post-category/{id}', [PostCategoryController::class, 'destroy'])->name('admin.post-category.destroy');
+
+    //Post
+    Route::get('/post', [PostController::class, 'index'])->name('admin.post.index');
+    Route::get('/post/create', [PostController::class, 'create'])->name('admin.post.create');
+    Route::post('/post', [PostController::class, 'store'])->name('admin.post.store');
+    Route::get('/post/show/{id}', [PostController::class, 'show'])->name('admin.post.show');
+    Route::get('/post/edit/{id}', [PostController::class, 'edit'])->name('admin.post.edit');
+    Route::put('/post/{id}', [PostController::class, 'update'])->name('admin.post.update');
+    Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('admin.post.destroy');
 
     // //User management
     // Route::get('/user-management', [UserManagementController::class, 'index'])->name('admin.user-management.index');

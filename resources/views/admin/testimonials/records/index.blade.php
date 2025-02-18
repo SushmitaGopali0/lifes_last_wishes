@@ -19,6 +19,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>User Email</th>
                                         <th>Title</th>
                                         <th>Status</th>
@@ -28,6 +29,7 @@
                                 <tbody>
                                     @foreach ($testimonial as $t)
                                         <tr>
+                                            <td><input type="checkbox" class="sub_chk" data-id="{{$t->id}}"></td>
                                             <td>{{ $t->email }}</td>
                                             <td>{{ $t->title }}</td>
                                             <td>{{ ucfirst($t->status) }}</td>

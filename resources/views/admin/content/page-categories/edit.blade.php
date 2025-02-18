@@ -21,17 +21,11 @@
                                 <label for="exampleInputEmail3">Name</label>
                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Name of page category"
                                     name="name" value="{{ old('name', $pagecategory->name) }}">
-                                @error('name')
-                                    <span class="text-danger mt-1 d-block">{{ $message }}</span>
-                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Slug</label>
                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Slug of page category"
                                     name="slug" value="{{ old('slug', $pagecategory->slug) }}">
-                                @error('slug')
-                                    <span class="text-danger mt-1 d-block">{{ $message }}</span>
-                                @enderror
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Update</button>
                         </form>

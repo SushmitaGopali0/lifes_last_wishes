@@ -23,22 +23,22 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Testimonial Store form </h4>
+                        <h4 class="card-title">Testimonial View Page </h4>
                         <form class="forms-sample" method="POST" action="#">
                             @csrf
                             {{-- email of the user(need to extract user email id and display it in dropdown) --}}
                             <div class="form-group">
-                                <label for="exampleInputEmail3">User Email *</label>
+                                <label for="exampleInputEmail3">User Email</label>
                                 <input type="email" class="form-control" id="exampleInputEmail3" placeholder="User Email"
                                     name="email" value="{{ $testimonial->email }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail3">Title *</label>
+                                <label for="exampleInputEmail3">Title</label>
                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Title for the testimonial"
                                     name="title" value="{{ $testimonial->title }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="exampleTextarea1">Message *</label>
+                                <label for="exampleTextarea1">Message</label>
                                 <textarea class="form-control" id="exampleTextarea1" cols="30" rows="10" name="message" placeholder="Testimonial message" readonly>{{ $testimonial->message }}</textarea>
                             </div>
                             <div class="form-group">
@@ -57,7 +57,8 @@
                                     name="website" value="{{ $testimonial->website }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="inputDescription">Status *</label>
+                                <label for="inputDescription">Status</label>
+                                <div style="display: flex; gap: 15px; align-items: center;">
                                 <div class="form-check form-check-danger">
                                     <label class="form-check-label">
                                         <input type="radio" class="form-check-input" name="status"
@@ -71,6 +72,7 @@
                                             id="optionsRadios1" value="approved" {{ $testimonial->status == 'approved' ? 'checked' : '' }} disabled>
                                         Approved
                                         <i class="input-helper"></i></label>
+                                </div>
                                 </div>
                             </div>
                             <div class="form-check form-check-success">

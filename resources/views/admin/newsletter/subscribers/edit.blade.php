@@ -21,25 +21,16 @@
                                 <label for="exampleInputEmail3">Email</label>
                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Email"
                                     name="email" value="{{ old('email', $newsletter->email) }}">
-                                @error('email')
-                                    <span class="text-danger mt-1 d-block">{{ $message }}</span>
-                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">First Name</label>
                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="First Name"
                                     name="fname" value="{{ old('fname', $newsletter->firstname) }}">
-                                @error('fname')
-                                    <span class="text-danger mt-1 d-block">{{ $message }}</span>
-                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Last Name</label>
                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Last Name"
                                     name="lname" value="{{ old('lname', $newsletter->lastname) }}">
-                                @error('lname')
-                                    <span class="text-danger mt-1 d-block">{{ $message }}</span>
-                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="inputDescription">Confirmed</label>
@@ -57,9 +48,6 @@
                                         </label>
                                     </div>
                                 </div>
-                                @error('confirmed')
-                                    <span class="text-danger mt-1 d-block">{{ $message }}</span>
-                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="inputDescription">Subscribed</label>
@@ -77,9 +65,6 @@
                                         </label>
                                     </div>
                                 </div>
-                                @error('subscribed')
-                                    <span class="text-danger mt-1 d-block">{{ $message }}</span>
-                                @enderror
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Update</button>
                         </form>

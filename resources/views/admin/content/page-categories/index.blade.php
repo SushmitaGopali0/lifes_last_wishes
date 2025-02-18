@@ -19,6 +19,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Name</th>
                                         <th>Slug</th>
                                         <th>Action</th>
@@ -27,6 +28,7 @@
                                 <tbody>
                                     @foreach ($pagecategory as $pc)
                                         <tr>
+                                            <td><input type="checkbox" class="sub_chk" data-id="{{$pc->id}}"></td>
                                             <td>{{ ucfirst($pc->name) }}</td>
                                             <td>{{ $pc->slug }}</td>
                                             <td><a href="{{ route('admin.page-category.show', ['id' => $pc->id]) }}">

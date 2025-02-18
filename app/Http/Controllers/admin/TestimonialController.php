@@ -130,7 +130,7 @@ class TestimonialController extends Controller
             $testimonial = Testimonial::where('id', $id)->firstOrFail();
             $testimonial->delete();
             DB::commit();
-            return back()->with('success', 'Testimonial id deleted.');
+            return back()->with('success', 'Testimonial is deleted.');
         }catch(\Exception $e){
             DB::rollBack();
             return back()->with('error', 'Testimonial deletion is failed. Please try again.' . $e->getMessage());
