@@ -25,6 +25,8 @@ Route::prefix('/admin')->group(function(){
 Route::resource('allusers', UserController::class)->names('users');
 Route::resource('allroles', RoleController::class)->names('roles');
 Route::resource('allpermissions', PermissionController::class)->names('permissions');
+
+//formgroups and formelements using resource route
 Route::resource('allformgroups', FormGroupController::class)->names('formgroups');
 Route::get('/formgroups/{formgroup}/customize', [FormGroupController::class, 'customize'])->name('formgroups.customize');
 Route::resource('allformelements', FormElementController::class)->names('formelements');
