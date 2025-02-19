@@ -27,7 +27,7 @@
         </a>
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{{ route('users.index') }}">Posts</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.post.index') }}">Posts</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.post-category.index') }}">Post Categories</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.page.index') }}">Pages</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.page-category.index') }}">Page Categories</a></li>

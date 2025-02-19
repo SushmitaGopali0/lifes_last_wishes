@@ -79,10 +79,10 @@ Route::prefix('/admin')->group(function(){
     Route::get('/post', [PostController::class, 'index'])->name('admin.post.index');
     Route::get('/post/create', [PostController::class, 'create'])->name('admin.post.create');
     Route::post('/post', [PostController::class, 'store'])->name('admin.post.store');
-    Route::get('/post/show/{id}', [PostController::class, 'show'])->name('admin.post.show');
-    Route::get('/post/edit/{id}', [PostController::class, 'edit'])->name('admin.post.edit');
-    Route::put('/post/{id}', [PostController::class, 'update'])->name('admin.post.update');
-    Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('admin.post.destroy');
+    Route::get('/post/show/{slug}', [PostController::class, 'show'])->name('admin.post.show');
+    Route::get('/post/edit/{slug}', [PostController::class, 'edit'])->name('admin.post.edit');
+    Route::put('/post/{slug}', [PostController::class, 'update'])->name('admin.post.update');
+    Route::delete('/post/{slug}', [PostController::class, 'destroy'])->name('admin.post.destroy');
 
     // //User management
     // Route::get('/user-management', [UserManagementController::class, 'index'])->name('admin.user-management.index');

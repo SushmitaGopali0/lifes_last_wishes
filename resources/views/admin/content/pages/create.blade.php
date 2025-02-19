@@ -1,4 +1,41 @@
 @extends('admin.layout.master')
+@push('css')
+    <style>
+        .image-preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* border: 2px dashed #ccc; */
+            padding: 10px;
+            border-radius: 10px;
+            width: 250px;
+            height: 200px;
+            text-align: center;
+            position: relative;
+            background-color: #f8f8f8;
+        }
+
+        .image-preview-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            display: none;
+            /* Initially hide the image */
+        }
+
+        .image-preview-container span {
+            color: #f8f8f8;
+            font-size: 14px;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+        }
+    </style>
+@endpush
 @section('body')
     <div class="col-md-6">
         <div class="card-body">
@@ -49,8 +86,12 @@
                             <div class="form-group">
                                 <label>Image</label>
                                 <div class="collections-create__sidebar--form mt-2">
-                                    <img height="196px" width="240px" src="" alt="Display Image Here"
-                                        id="image-preview">
+                                    <div class="image-preview-container">
+                                        <span id="image-text" class="preview-text">Upload Image</span>
+                                        <img height="196px" width="240px"
+                                            src="{{ isset($page) && $page->image ? asset('storage/' . $page->image) : 'https://via.placeholder.com/240x196?text=No+Image' }}"
+                                            alt="Display Image Here" id="image-preview">
+                                    </div>
                                     <br><br>
                                     <input type="file" name="image" class="file-upload-default" id="myfile"
                                         onchange="previewImage(event)">
@@ -79,21 +120,22 @@
                             <div class="form-group">
                                 <label for="inputDescription">Status</label>
                                 <div style="display: flex; gap: 15px; align-items: center;">
-                                <div class="form-check form-check-success">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="status" id="optionsRadios2"
-                                            value="active" checked="" {{ old('status') == 'active' ? 'checked' : '' }}>
-                                        Active
-                                        <i class="input-helper"></i></label>
-                                </div>
-                                <div class="form-check form-check-danger">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="status"
-                                            id="optionsRadios1" value="inactive"
-                                            {{ old('status') == 'inactive' ? 'checked' : '' }}>
-                                        Inactive
-                                        <i class="input-helper"></i></label>
-                                </div>
+                                    <div class="form-check form-check-success">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="status"
+                                                id="optionsRadios2" value="active" checked=""
+                                                {{ old('status') == 'active' ? 'checked' : '' }}>
+                                            Active
+                                            <i class="input-helper"></i></label>
+                                    </div>
+                                    <div class="form-check form-check-danger">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="status"
+                                                id="optionsRadios1" value="inactive"
+                                                {{ old('status') == 'inactive' ? 'checked' : '' }}>
+                                            Inactive
+                                            <i class="input-helper"></i></label>
+                                    </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Create</button>
@@ -121,14 +163,15 @@
     <!-- End custom js for this page-->
 
     <script>
-        // Function to preview selected image
         function previewImage(event) {
             var input = event.target;
             var reader = new FileReader();
             reader.onload = function() {
                 var imgElement = document.getElementById('image-preview');
+                var textElement = document.getElementById('image-text'); // Get text element
                 imgElement.src = reader.result;
-                imgElement.style.display = 'block'; // Show the image element
+                imgElement.style.display = 'block'; // Show image
+                textElement.style.display = 'none'; // Hide text when image is loaded
             }
             reader.readAsDataURL(input.files[0]);
         }

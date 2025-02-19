@@ -23,7 +23,7 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Page View Page </h4>
+                        <h4 class="card-title">Page View </h4>
                         <form class="forms-sample" method="POST" action="{{ route('admin.page.update', $page)}}"
                             enctype="multipart/form-data">
                             @csrf

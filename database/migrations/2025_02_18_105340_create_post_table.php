@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('post', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->longText('post_content');
+            $table->text('excerpt');
+            $table->text('category');
+            $table->text('tags');
+            $table->string('image');
+            $table->text('meta_description')->nullable();
+            $table->text('meta_keywords')->nullable();
+            $table->text('seo_title')->nullable();
+            $table->string('status')->default('draft');
+            $table->boolean('is_featured')->default(0);
             $table->timestamps();
         });
     }
