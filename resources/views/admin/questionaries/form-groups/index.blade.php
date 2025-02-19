@@ -34,8 +34,8 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                     <button class="btn btn-info">Preview</button>
-                    <a href="{{ route('formgroups.customize', $formGroup->id) }}" class="btn btn-info">Customize</a>
-                    <button class="btn btn-secondary">Conditions</button>
+                    <a href="{{ route('formgroups.customize', $formGroup->id) }}" class="btn btn-customize">Customize</a>
+                    <button class="btn btn-secondary">Conditions</button>   
                 </td>
             </tr>
             @endforeach
@@ -68,6 +68,12 @@
         text-decoration: none;
         color: white;
     }
+    .btn-customize {
+    background: #28a745; 
+    margin-top: 15px;
+    color: white;
+}
+
     .btn-primary { background: #007bff; }
     .btn-warning { background: #ffc107; margin-top: 14px }
     .btn-danger { background: #dc3545; }

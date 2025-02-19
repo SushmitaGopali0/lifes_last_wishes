@@ -22,7 +22,7 @@
                 @foreach($formGroup->elements as $element)
                 <li class="list-group-item d-flex justify-content-between align-items-center" data-id="{{ $element->id }}">
                     <span>{{ $element->label }}</span>
-                    <div>
+                    <div class="btn-group">
                         <button class="btn btn-primary btn-sm btn-edit" data-id="{{ $element->id }}">
                             <i class="fas fa-edit"></i> Edit
                         </button>
@@ -140,4 +140,17 @@ document.getElementById("openModal").addEventListener("click", function () {
 
 </script>
 
+<style>
+    .btn-group {
+    display: flex;
+    gap: 8px; 
+    align-items: center;
+}
+
+.delete-form {
+    display: inline-block;
+    margin: 0;
+}
+
+</style>
 @endsection
