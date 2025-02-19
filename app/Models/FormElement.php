@@ -16,8 +16,12 @@ class FormElement extends Model
         'label',
         'pdf_label',
         'show_in_pdf',
-        'details',
+        'details', //stores as json in database.
         'order',
+    ];
+
+    protected $casts = [
+        'details' => 'array',  // Automatically cast the 'details' column to an array when retrieving from database.
     ];
 
   public function groups()
