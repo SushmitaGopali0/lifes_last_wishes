@@ -6,6 +6,9 @@
                 <a href="{{ route('admin.newsletter.create') }}"><button type="button"
                         class="btn btn-primary btn-rounded btn-fw">Add
                         Newsletter</button></a>
+                        <a href="{{ route('admin.newsletter.destroyall') }}" id="deleteAllSelectedRecord"><button type="button"
+                            class="btn btn-danger btn-rounded btn-fw">Delete All
+                            Selected </button></a>
             </div>
         </div>
     </div>
@@ -19,7 +22,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th><input type="checkbox" name="ids" class="select_all"></th>
                                         <th>Email</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
@@ -30,8 +33,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($newsletter as $n)
-                                        <tr>
-                                            <td><input type="checkbox" class="sub_chk" data-id="{{$n->id}}"></td>
+                                    <tr id="delete_id{{ $n->id }}">
+                                        <td><input type="checkbox" class="checkbox_item" name="ids"
+                                                value="{{ $n->id }}"></td>
                                             <td>{{ $n->email }}</td>
                                             <td>{{ $n->firstname }}</td>
                                             <td>{{ $n->lastname }}</td>
@@ -67,4 +71,5 @@
         </div>
     </div>
 @endsection
+
 

@@ -6,6 +6,9 @@
                 <a href="{{ route('admin.post-category.create') }}"><button type="button"
                         class="btn btn-primary btn-rounded btn-fw">Add
                         Post Category</button></a>
+                        <a href="{{ route('admin.post-category.destroyall') }}" id="deleteAllSelectedRecord"><button type="button"
+                            class="btn btn-danger btn-rounded btn-fw">Delete All
+                            Selected </button></a>
             </div>
         </div>
     </div>
@@ -19,7 +22,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th><input type="checkbox" name="ids" class="select_all"></th>
                                         <th>Order</th>
                                         <th>Name</th>
                                         <th>Slug</th>
@@ -28,8 +31,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($postCategory as $po)
-                                        <tr>
-                                            <td><input type="checkbox" class="sub_chk" data-id="{{$po->id}}"></td>
+                                    <tr id="delete_id{{ $po->id }}">
+                                        <td><input type="checkbox" class="checkbox_item" name="ids"
+                                                value="{{ $po->id }}"></td>
                                             <td>{{ $po->order }}</td>
                                             <td>{{ ucfirst($po->name) }}</td>
                                             <td>{{ $po->slug }}</td>

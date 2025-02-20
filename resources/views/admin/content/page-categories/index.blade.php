@@ -6,6 +6,9 @@
                 <a href="{{ route('admin.page-category.create') }}"><button type="button"
                         class="btn btn-primary btn-rounded btn-fw">Add
                         Page Categories</button></a>
+                <a href="{{ route('admin.page-category.destroyall') }}" id="deleteAllSelectedRecord"><button type="button"
+                        class="btn btn-danger btn-rounded btn-fw">Delete All
+                        Selected </button></a>
             </div>
         </div>
     </div>
@@ -19,7 +22,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th><input type="checkbox" name="ids" class="select_all"></th>
                                         <th>Name</th>
                                         <th>Slug</th>
                                         <th>Action</th>
@@ -27,8 +30,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($pagecategory as $pc)
-                                        <tr>
-                                            <td><input type="checkbox" class="sub_chk" data-id="{{$pc->id}}"></td>
+                                        <tr id="delete_id{{ $pc->id }}">
+                                            <td><input type="checkbox" class="checkbox_item" name="ids"
+                                                    value="{{ $pc->id }}"></td>
                                             <td>{{ ucfirst($pc->name) }}</td>
                                             <td>{{ $pc->slug }}</td>
                                             <td><a href="{{ route('admin.page-category.show', ['id' => $pc->id]) }}">
@@ -39,10 +43,13 @@
                                                         style="font-size: 25px; color:green"></i>
                                                 </a>
                                                 <!-- Delete Form -->
-                                                <form action="{{ route('admin.page-category.destroy', ['id' => $pc->id]) }}" method="POST" style="display:inline;">
+                                                <form action="{{ route('admin.page-category.destroy', ['id' => $pc->id]) }}"
+                                                    method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this Page Category?')" style="background: none; border: none; padding: 0;">
+                                                    <button type="submit"
+                                                        onclick="return confirm('Are you sure you want to delete this Page Category?')"
+                                                        style="background: none; border: none; padding: 0;">
                                                         <i class="mdi mdi-delete" style="font-size: 25px; color:red"></i>
                                                     </button>
                                                 </form>

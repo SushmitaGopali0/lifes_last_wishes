@@ -69,6 +69,8 @@
     <!-- toastr -->
     <script src="/js/toastr.min.js" type="text/javascript"></script>
     <script src="{{ asset('toastjs.js') }}"></script>
+    <script src="{{ asset('select-all.js') }}"></script>
+
     @stack('js')
 
     <script>
@@ -107,6 +109,67 @@
             @endforeach
         @endif
     </script>
+    <script>
+        $(document).ready(function () {
+            // When the select_all checkbox is clicked
+            $('.select_all').on('change', function () {
+                $('.checkbox_item').prop('checked', $(this).prop('checked'));
+            });
+
+            // If any checkbox is unchecked, uncheck the select_all checkbox
+            $('.checkbox_item').on('change', function () {
+                if ($('.checkbox_item:checked').length === $('.checkbox_item').length) {
+                    $('.select_all').prop('checked', true);
+                } else {
+                    $('.select_all').prop('checked', false);
+                }
+            });
+        });
+    </script>
+
+{{-- bulk delete --}}
+<script>
+    $(document).ready(function() {
+        $('#deleteAllSelectedRecord').click(function(e) {
+            e.preventDefault();
+
+            var all_ids = [];
+            $('input.checkbox_item:checked').each(function() {
+                all_ids.push($(this).val());
+            });
+
+            if (all_ids.length === 0) {
+                toastr.warning("Please select at least one data to delete.");
+                return;
+            }
+            if (!confirm("Are you sure you want to delete all these entries?")) {
+                    return;
+                }
+
+            $.ajax({
+                type: "POST",
+                data: {
+                    ids: all_ids,
+                    _method: 'DELETE',
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    toastr.success(response.success);
+
+                    // Remove deleted rows smoothly
+                    $.each(all_ids, function(index, val) {
+                        $('#delete_id' + val).fadeOut(500, function() {
+                            $(this).remove();
+                        });
+                    });
+                },
+                error: function(xhr) {
+                    toastr.error("Something went wrong: " + xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
 </body>
 
 </html>

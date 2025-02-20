@@ -6,6 +6,9 @@
                 <a href="{{ route('admin.testimonial.create') }}"><button type="button"
                         class="btn btn-primary btn-rounded btn-fw">Add
                         Testimonial</button></a>
+                        <a href="{{ route('admin.testimonial.destroyall') }}" id="deleteAllSelectedRecord"><button type="button"
+                            class="btn btn-danger btn-rounded btn-fw">Delete All
+                            Selected </button></a>
             </div>
         </div>
     </div>
@@ -19,7 +22,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th><input type="checkbox" name="ids" class="select_all"></th>
                                         <th>User Email</th>
                                         <th>Title</th>
                                         <th>Status</th>
@@ -28,8 +31,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($testimonial as $t)
-                                        <tr>
-                                            <td><input type="checkbox" class="sub_chk" data-id="{{$t->id}}"></td>
+                                    <tr id="delete_id{{ $t->id }}">
+                                        <td><input type="checkbox" class="checkbox_item" name="ids"
+                                                value="{{ $t->id }}"></td>
                                             <td>{{ $t->email }}</td>
                                             <td>{{ $t->title }}</td>
                                             <td>{{ ucfirst($t->status) }}</td>

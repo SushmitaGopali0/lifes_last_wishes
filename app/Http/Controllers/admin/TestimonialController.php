@@ -136,4 +136,19 @@ class TestimonialController extends Controller
             return back()->with('error', 'Testimonial deletion is failed. Please try again.' . $e->getMessage());
         }
     }
+
+    /**
+     * Bulk Remove the specified resource from storage.
+     */
+    public function destroyAll(Request $request)
+    {
+        if (!$request->has('ids')) {
+            return response()->json(["error" => "No IDs provided"], 400);
+        }
+
+        $ids = $request->ids;
+        Testimonial::whereIn('id', $ids)->delete();
+
+        return response()->json(["success" => "Testimonials are deleted"]);
+    }
 }

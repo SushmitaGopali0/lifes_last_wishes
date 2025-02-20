@@ -38,6 +38,7 @@ Route::prefix('/admin')->group(function(){
     Route::get('/testimonial/edit/{id}', [TestimonialController::class, 'edit'])->name('admin.testimonial.edit');
     Route::put('/testimonial/{id}', [TestimonialController::class, 'update'])->name('admin.testimonial.update');
     Route::delete('/testimonial/{id}', [TestimonialController::class, 'destroy'])->name('admin.testimonial.destroy');
+    Route::delete('/testimonial', [TestimonialController::class, 'destroyAll'])->name('admin.testimonial.destroyall');
 
     //Newsletter
     Route::get('/newsletter', [NewsletterController::class, 'index'])->name('admin.newsletter.index');
@@ -47,6 +48,7 @@ Route::prefix('/admin')->group(function(){
     Route::get('/newsletter/edit/{id}', [NewsletterController::class, 'edit'])->name('admin.newsletter.edit');
     Route::put('/newsletter/{id}', [NewsletterController::class, 'update'])->name('admin.newsletter.update');
     Route::delete('/newsletter/{id}', [NewsletterController::class, 'destroy'])->name('admin.newsletter.destroy');
+    Route::delete('/newsletter', [NewsletterController::class, 'destroyAll'])->name('admin.newsletter.destroyall');
 
     //Page Category
     Route::get('/page-category', [PageCategoryController::class, 'index'])->name('admin.page-category.index');
@@ -56,6 +58,7 @@ Route::prefix('/admin')->group(function(){
     Route::get('/page-category/edit/{id}', [PageCategoryController::class, 'edit'])->name('admin.page-category.edit');
     Route::put('/page-category/{id}', [PageCategoryController::class, 'update'])->name('admin.page-category.update');
     Route::delete('/page-category/{id}', [PageCategoryController::class, 'destroy'])->name('admin.page-category.destroy');
+    Route::delete('/page-category', [PageCategoryController::class, 'destroyAll'])->name('admin.page-category.destroyall');
 
     //Page
     Route::get('/page', [PageController::class, 'index'])->name('admin.page.index');
@@ -65,6 +68,7 @@ Route::prefix('/admin')->group(function(){
     Route::get('/page/edit/{id}', [PageController::class, 'edit'])->name('admin.page.edit');
     Route::put('/page/{id}', [PageController::class, 'update'])->name('admin.page.update');
     Route::delete('/page/{id}', [PageController::class, 'destroy'])->name('admin.page.destroy');
+    Route::delete('/page', [PageController::class, 'destroyAll'])->name('admin.page.destroyall');
 
     //Post Categories
     Route::get('/post-category', [PostCategoryController::class, 'index'])->name('admin.post-category.index');
@@ -74,6 +78,7 @@ Route::prefix('/admin')->group(function(){
     Route::get('/post-category/edit/{id}', [PostCategoryController::class, 'edit'])->name('admin.post-category.edit');
     Route::put('/post-category/{id}', [PostCategoryController::class, 'update'])->name('admin.post-category.update');
     Route::delete('/post-category/{id}', [PostCategoryController::class, 'destroy'])->name('admin.post-category.destroy');
+    Route::delete('/post-category', [PostCategoryController::class, 'destroyAll'])->name('admin.post-category.destroyall');
 
     //Post
     Route::get('/post', [PostController::class, 'index'])->name('admin.post.index');
@@ -83,6 +88,7 @@ Route::prefix('/admin')->group(function(){
     Route::get('/post/edit/{slug}', [PostController::class, 'edit'])->name('admin.post.edit');
     Route::put('/post/{slug}', [PostController::class, 'update'])->name('admin.post.update');
     Route::delete('/post/{slug}', [PostController::class, 'destroy'])->name('admin.post.destroy');
+    Route::delete('/post', [PostController::class, 'destroyAll'])->name('admin.post.destroyall');
 
     // //User management
     // Route::get('/user-management', [UserManagementController::class, 'index'])->name('admin.user-management.index');

@@ -77,7 +77,7 @@ class PageCategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|regex:/^[a-zA-Z\s]+$/u',
-            'slug' => 'required|alpha_dash|unique:page_categories,slug,'. $id
+            'slug' => 'required|alpha_dash|unique:page_categories,slug,' . $id
         ]);
         try {
             DB::beginTransaction();
@@ -99,17 +99,31 @@ class PageCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
+        try {
             DB::beginTransaction();
             $pagecategory = PageCategory::where('id', $id)->firstOrFail();
             $pagecategory->delete();
             DB::commit();
             return back()->with('success', 'Page Category is deleted.');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Page category deletion is failed. Please try again.' . $e->getMessage());
         }
     }
 
+    /**
+     * Bulk Remove the specified resource from storage.
+     */
+    public function destroyAll(Request $request)
+    {
+        if (!$request->has('ids')) {
+            return response()->json(["error" => "No IDs provided"], 400);
+        }
+
+        $ids = $request->ids;
+        PageCategory::whereIn('id', $ids)->delete();
+
+        return response()->json(["success" => "Page Categories are deleted"]);
+    }
 
 }
