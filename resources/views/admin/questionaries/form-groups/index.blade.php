@@ -33,9 +33,9 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
-                    <button class="btn btn-info">Preview</button>
+                    <a href = "{{ route('formgroups.preview', $formGroup->id) }}" class="btn btn-info">Preview</button>
                     <a href="{{ route('formgroups.customize', $formGroup->id) }}" class="btn btn-customize">Customize</a>
-                    <button class="btn btn-secondary">Conditions</button>   
+                    <a href="{{ route('formgroups.condition', $formGroup->id) }}" class="btn btn-secondary">Conditions</button>   
                 </td>
             </tr>
             @endforeach
@@ -77,8 +77,8 @@
     .btn-primary { background: #007bff; }
     .btn-warning { background: #ffc107; margin-top: 14px }
     .btn-danger { background: #dc3545; }
-    .btn-info { background: #17a2b8; }
-    .btn-secondary { background: #6c757d; }
+    .btn-info { background: #17a2b8; margin-top: 14px; margin-right: 4px;}
+    .btn-secondary { background: #6c757d; margin-top: 14px;}
     table {
         width: 100%;
         border-collapse: collapse;

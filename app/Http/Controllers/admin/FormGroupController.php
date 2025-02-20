@@ -19,8 +19,18 @@ class FormGroupController extends Controller
          $formGroup = FormGroup::with('elements')->findOrFail($id);
          return view('admin.questionaries.form-groups.customize.index', compact('formGroup'));
      }
-     
 
+     public function preview($id)
+     {
+         $formGroup = FormGroup::with('elements')->findOrFail($id);
+         return view('admin.questionaries.form-groups.preview.index', compact('formGroup'));
+     }
+     public function condition($id)
+     {
+         $formGroup = FormGroup::with('elements')->findOrFail($id);
+         return view('admin.questionaries.form-groups.condition.index', compact('formGroup'));
+     }  
+     
     public function index()
     {
     $formGroups = FormGroup::all();
