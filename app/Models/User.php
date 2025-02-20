@@ -16,5 +16,10 @@ class User extends Model
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
+
+    public function testimonial()
+    {
+        return $this->hasMany(Testimonial::class, 'user_id');
+    }
 }
 //each users belongs to  one role

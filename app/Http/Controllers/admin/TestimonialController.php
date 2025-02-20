@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Testimonial;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,7 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonial = Testimonial::paginate(10);
+        $testimonial = Testimonial::with('useremail')->paginate(10);
         return view('admin.testimonials.records.index', compact('testimonial'));
     }
 
@@ -23,7 +24,8 @@ class TestimonialController extends Controller
      */
     public function create()
     {
-        return view('admin.testimonials.records.create');
+        $user = User::all();
+        return view('admin.testimonials.records.create', compact('user'));
     }
 
     /**
@@ -33,7 +35,7 @@ class TestimonialController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'nullable|exists:users,id',
             'title' => 'required|string|max:255',
             'message' => 'required|string',
             'job_title' => 'nullable|string',
@@ -46,7 +48,7 @@ class TestimonialController extends Controller
         try {
             DB::beginTransaction();
             Testimonial::create([
-                'email' => $request->email,
+                'user_id' => $request->email,
                 'title' => $request->title,
                 'message' => $request->message,
                 'job_title' => $request->job_title,
@@ -69,8 +71,9 @@ class TestimonialController extends Controller
      */
     public function show(string $id)
     {
+        $user = User::all();
         $testimonial = Testimonial::findOrFail($id);
-        return view('admin.testimonials.records.show', compact('testimonial'));
+        return view('admin.testimonials.records.show', compact('testimonial', 'user'));
     }
 
     /**
@@ -78,8 +81,9 @@ class TestimonialController extends Controller
      */
     public function edit(string $id)
     {
+        $user = User::all();
         $testimonial = Testimonial::findOrFail($id);
-        return view('admin.testimonials.records.edit', compact('testimonial'));
+        return view('admin.testimonials.records.edit', compact('testimonial', 'user'));
     }
 
     /**
@@ -89,7 +93,7 @@ class TestimonialController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'nullable|exists:users,id',
             'title' => 'required|string|max:255',
             'message' => 'required|string',
             'job_title' => 'nullable|string',
@@ -102,7 +106,7 @@ class TestimonialController extends Controller
         try {
             DB::beginTransaction();
             $testimonial = Testimonial::where('id', $id)->firstOrFail();
-            $testimonial->email = $request->email;
+            $testimonial->user_id = $request->email;
             $testimonial->title = $request->title;
             $testimonial->message = $request->message;
             $testimonial->job_title = $request->job_title;

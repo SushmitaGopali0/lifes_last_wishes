@@ -45,6 +45,7 @@ Route::resource('allformelements', FormElementController::class)->names('formele
     Route::get('/testimonial', [TestimonialController::class, 'index'])->name('admin.testimonial.index');
     Route::get('/testimonial/create', [TestimonialController::class, 'create'])->name('admin.testimonial.create');
     Route::post('/testimonial', [TestimonialController::class, 'store'])->name('admin.testimonial.store');
+    Route::get('/testimonial/show/{id}', [TestimonialController::class, 'show'])->name('admin.testimonial.show');
     Route::get('/testimonial/edit/{id}', [TestimonialController::class, 'edit'])->name('admin.testimonial.edit');
     Route::put('/testimonial/{id}', [TestimonialController::class, 'update'])->name('admin.testimonial.update');
     Route::delete('/testimonial/{id}', [TestimonialController::class, 'destroy'])->name('admin.testimonial.destroy');

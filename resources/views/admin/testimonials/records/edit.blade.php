@@ -17,11 +17,16 @@
                         <form class="forms-sample" method="POST" action="{{ route('admin.testimonial.update', $testimonial) }}">
                             @csrf
                             @method('PUT')
-                            {{-- email of the user(need to extract user email and display it in dropdown) --}}
                             <div class="form-group">
-                                <label for="exampleInputEmail3">User Email</label>
-                                <input type="text" class="form-control" id="exampleInputEmail3" placeholder="User Email"
-                                    name="email" value="{{ old('email', $testimonial->email) }}">
+                                <label for="pageCategory">User Email</label>
+                                <select class="form-select" name="email" id="email">
+                                    <option class="form-control" selected disabled>Select User Email</option>
+                                    @foreach ($user as $u)
+                                        <option value="{{ $u->id }}"
+                                            {{ old('email', $testimonial->user_id) == $u->id ? 'selected' : '' }}>{{ $u->email }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Title</label>

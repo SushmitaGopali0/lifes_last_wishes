@@ -26,11 +26,16 @@
                         <h4 class="card-title">Testimonial View Page </h4>
                         <form class="forms-sample" method="POST" action="#">
                             @csrf
-                            {{-- email of the user(need to extract user email id and display it in dropdown) --}}
                             <div class="form-group">
-                                <label for="exampleInputEmail3">User Email</label>
-                                <input type="email" class="form-control" id="exampleInputEmail3" placeholder="User Email"
-                                    name="email" value="{{ $testimonial->email }}" readonly>
+                                <label for="pageCategory">User Email</label>
+                                <select class="form-select" name="email" id="email" disabled>
+                                    <option class="form-control" selected disabled>Select User Email</option>
+                                    @foreach ($user as $u)
+                                        <option value="{{ $u->id }}"
+                                            {{ old('email', $testimonial->user_id) == $u->id ? 'selected' : '' }}>{{ $u->email }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Title</label>

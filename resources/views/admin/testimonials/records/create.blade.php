@@ -17,11 +17,16 @@
                         <h4 class="card-title">Testimonial Store form </h4>
                         <form class="forms-sample" method="POST" action="{{ route('admin.testimonial.store') }}">
                             @csrf
-                            {{-- email of the user(need to extract user email id and display it in dropdown) --}}
                             <div class="form-group">
-                                <label for="exampleInputEmail3">User Email</label>
-                                <input type="text" class="form-control" id="exampleInputEmail3" placeholder="User Email"
-                                    name="email" value="{{ old('email') }}">
+                                <label for="pageCategory">User Email</label>
+                                <select class="form-select" name="email" id="email">
+                                    <option class="form-control" selected disabled>Select User Email</option>
+                                    @foreach ($user as $u)
+                                        <option value="{{ $u->id }}"
+                                            {{ old('email') == $u->id ? 'selected' : '' }}>{{ $u->email }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Title</label>

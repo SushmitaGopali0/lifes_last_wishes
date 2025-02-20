@@ -34,7 +34,7 @@
                                     <tr id="delete_id{{ $t->id }}">
                                         <td><input type="checkbox" class="checkbox_item" name="ids"
                                                 value="{{ $t->id }}"></td>
-                                            <td>{{ $t->email }}</td>
+                                            <td>{{ $t->useremail->email ?? '' }}</td>
                                             <td>{{ $t->title }}</td>
                                             <td>{{ ucfirst($t->status) }}</td>
                                             <td><a href="{{ route('admin.testimonial.show', ['id' => $t->id]) }}">
