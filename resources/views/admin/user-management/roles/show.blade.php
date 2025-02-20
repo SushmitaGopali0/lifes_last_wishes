@@ -1,6 +1,8 @@
-@extends('layouts.app')
-
-@section('content')
+@extends('admin.layout.master')
+@push('css')
+<link rel="stylesheet" href="{{asset('css/users.css')}}">
+@endpush
+@section('body')
 <div class="container">
     <h2>Role Details</h2>
 

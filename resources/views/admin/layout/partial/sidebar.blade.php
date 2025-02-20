@@ -19,6 +19,9 @@
           </ul>
         </div>
       </li>
+
+    
+
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <i class="mdi mdi-content-copy menu-icon"></i>
@@ -58,6 +61,20 @@
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.testimonial.index') }}">Records</a></li>
             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Settings</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+          <i class="mdi mdi-account-multiple menu-icon"></i>
+          <span class="menu-title">Questionaries</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="ui-basic">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('formgroups.index') }}">Form Groups</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('formgroups.index') }}">Sections</a></li>
           </ul>
         </div>
       </li>

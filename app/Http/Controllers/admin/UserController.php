@@ -23,7 +23,7 @@ class UserController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
+    { 
         $roles = Role::all(); // Fetch all roles
         return view('admin.user-management.users.create', compact('roles'));
     }
@@ -39,13 +39,13 @@ class UserController extends Controller
             'password' => 'required|min:6',
             'role_id' => 'required|',
         ]);
-
+        
         $data = $request->all();
         $data['password'] = Hash::make($request->password); // Hash the password
 
         User::create($data);
 
-        return redirect()->route('admin.user-management.users.index')->with('success', 'User created successfully.');
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     /**
@@ -54,7 +54,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::findOrFail($id);
-        return view("admin.user-management.users.singleuserview", compact("user"));
+        return view("admin.user-management.users.singleuserview", compact("user")); 
     }
 
     /**
@@ -85,12 +85,12 @@ class UserController extends Controller
         if (!empty($request->password)) {
             $data['password'] = Hash::make($request->password);
         } else {
-            unset($data['password']);
+            unset($data['password']); 
         }
 
         $user->update($data);
 
-        return redirect()->route('admin.user-management.users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
     /**
@@ -100,6 +100,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('admin.user-management.users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 }

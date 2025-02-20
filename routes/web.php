@@ -1,40 +1,50 @@
 <?php
 
-use App\Http\Controllers\admin\UserController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\RoleController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\FormElementController;
+use App\Http\Controllers\admin\FormGroupController;
 use App\Http\Controllers\admin\NewsletterController;
 use App\Http\Controllers\admin\PageCategoryController;
 use App\Http\Controllers\admin\PageController;
+use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\PostCategoryController;
 use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\admin\TestimonialController;
 use App\Http\Controllers\admin\UserManagementController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::get('/login', function () {
     return view('login');
 });
 
 
-
+//users, roles, and permissions using resource route
 Route::prefix('/admin')->group(function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.index');
+Route::resource('allusers', UserController::class)->names('users');
+Route::resource('allroles', RoleController::class)->names('roles');
+Route::resource('allpermissions', PermissionController::class)->names('permissions');
 
-    //users and roles
-    Route::resource('allusers', UserController::class)->names('users');
-    Route::resource('allroles', RoleController::class)->names('roles');
+//formgroups and formelements using resource route
+Route::resource('allformgroups', FormGroupController::class)->names('formgroups');
+Route::get('/formgroups/{formgroup}/customize', [FormGroupController::class, 'customize'])->name('formgroups.customize');
+Route::resource('allformelements', FormElementController::class)->names('formelements');
+
+});
+
+   Route::prefix('/admin')->group(function(){
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.index');
 
     //Testimonials
     Route::get('/testimonial', [TestimonialController::class, 'index'])->name('admin.testimonial.index');
     Route::get('/testimonial/create', [TestimonialController::class, 'create'])->name('admin.testimonial.create');
     Route::post('/testimonial', [TestimonialController::class, 'store'])->name('admin.testimonial.store');
-    Route::get('/testimonial/show/{id}', [TestimonialController::class, 'show'])->name('admin.testimonial.show');
     Route::get('/testimonial/edit/{id}', [TestimonialController::class, 'edit'])->name('admin.testimonial.edit');
     Route::put('/testimonial/{id}', [TestimonialController::class, 'update'])->name('admin.testimonial.update');
     Route::delete('/testimonial/{id}', [TestimonialController::class, 'destroy'])->name('admin.testimonial.destroy');
@@ -49,6 +59,7 @@ Route::prefix('/admin')->group(function(){
     Route::put('/newsletter/{id}', [NewsletterController::class, 'update'])->name('admin.newsletter.update');
     Route::delete('/newsletter/{id}', [NewsletterController::class, 'destroy'])->name('admin.newsletter.destroy');
     Route::delete('/newsletter', [NewsletterController::class, 'destroyAll'])->name('admin.newsletter.destroyall');
+    Route::get('/newsletter/export', [NewsletterController::class, 'export'])->name('admin.newsletter.export');
 
     //Page Category
     Route::get('/page-category', [PageCategoryController::class, 'index'])->name('admin.page-category.index');
@@ -90,11 +101,4 @@ Route::prefix('/admin')->group(function(){
     Route::delete('/post/{slug}', [PostController::class, 'destroy'])->name('admin.post.destroy');
     Route::delete('/post', [PostController::class, 'destroyAll'])->name('admin.post.destroyall');
 
-    // //User management
-    // Route::get('/user-management', [UserManagementController::class, 'index'])->name('admin.user-management.index');
-    // Route::get('/user-management/create', [UserManagementController::class, 'create'])->name('admin.user-management.create');
-    // Route::post('/user-management', [UserManagementController::class, 'store'])->name('admin.user-management.store');
-    // Route::get('/user-management/edit/{id}', [UserManagementController::class, 'edit'])->name('admin.user-management.edit');
-    // Route::put('/user-management/{id}', [UserManagementController::class, 'update'])->name('admin.user-management.update');
-    // Route::delete('/user-management/{id}', [UserManagementController::class, 'destroy'])->name('admin.user-management.destroy');
 });

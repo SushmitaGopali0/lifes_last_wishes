@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\GenerateActiveExport;
 use App\Http\Controllers\Controller;
 use App\Models\Newsletter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class NewsletterController extends Controller
 {
@@ -136,4 +138,14 @@ class NewsletterController extends Controller
 
         return response()->json(["success" => "Newsletters are deleted"]);
     }
+
+    /**
+     * Export data in excel.
+     */
+    public function export()
+    {
+        $filename = "Ative_Subscriber.xlsx";
+        return Excel::download(new GenerateActiveExport, $filename);
+    }
+
 }

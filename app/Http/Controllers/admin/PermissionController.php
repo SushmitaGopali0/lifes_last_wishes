@@ -3,16 +3,23 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
+
+use App\Models\Permission;
 use Illuminate\Http\Request;
 
-class UserManagementController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.user-management.users.index');
+        // $permission = Permission::find(5);
+        // return $permission->roles;
+         $permissions = Permission::all();
+
+        return view('admin.user-management.permissions.index', compact('permissions'));
     }
 
     /**
@@ -20,7 +27,7 @@ class UserManagementController extends Controller
      */
     public function create()
     {
-        return view('admin.user-management.users.create');
+        
     }
 
     /**
@@ -28,8 +35,23 @@ class UserManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'display_name' => 'required',
+        ]);
+
+        $role = Role::create([
+            'name' => $request->name,
+            'display_name' => $request->display_name
+        ]);
+
+        $permissions = $request->input('permissions');//from form
+
+        $role->permissions()->sync($permissions);
+
+        return redirect()->route('roles.index')->with('success', 'ok');
     }
+    
 
     /**
      * Display the specified resource.

@@ -9,6 +9,8 @@
                         <a href="{{ route('admin.newsletter.destroyall') }}" id="deleteAllSelectedRecord"><button type="button"
                             class="btn btn-danger btn-rounded btn-fw">Delete All
                             Selected </button></a>
+                        <a href="{{ route('admin.newsletter.export') }}"><button type="button"
+                            class="btn btn-success btn-rounded btn-fw">Export Active Subscriber</button></a>
             </div>
         </div>
     </div>
