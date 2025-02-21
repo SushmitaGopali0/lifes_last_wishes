@@ -28,7 +28,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="pageCategory">User Email</label>
-                                <select class="form-select" name="email" id="email" disabled>
+                                <select class="form-control" name="email" id="email" disabled>
                                     <option class="form-control" selected disabled>Select User Email</option>
                                     @foreach ($user as $u)
                                         <option value="{{ $u->id }}"

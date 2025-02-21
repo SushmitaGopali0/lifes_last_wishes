@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\RoleController;
@@ -101,5 +102,14 @@ Route::resource('allformelements', FormElementController::class)->names('formele
     Route::put('/post/{slug}', [PostController::class, 'update'])->name('admin.post.update');
     Route::delete('/post/{slug}', [PostController::class, 'destroy'])->name('admin.post.destroy');
     Route::delete('/post', [PostController::class, 'destroyAll'])->name('admin.post.destroyall');
+
+    //Setting
+    Route::get('/setting', [SettingController::class, 'index'])->name('admin.setting.index');
+    Route::get('/setting/create', [SettingController::class, 'create'])->name('admin.setting.create');
+    Route::post('/setting', [SettingController::class, 'store'])->name('admin.setting.store');
+    Route::get('/setting/show/{id}', [SettingController::class, 'show'])->name('admin.setting.show');
+    Route::get('/setting/edit/{id}', [SettingController::class, 'edit'])->name('admin.setting.edit');
+    Route::put('/setting/{id}', [SettingController::class, 'update'])->name('admin.setting.update');
+    Route::delete('/setting/{id}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
 
 });

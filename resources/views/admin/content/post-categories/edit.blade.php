@@ -21,7 +21,7 @@
                             {{-- confused --}}
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Parent</label>
-                                <select class="form-group form-select" name="parent">
+                                <select class="form-group form-control" name="parent">
                                     <optgroup label="Custom">
                                         <option value="" {{ old('parent', $postCategory->parent) == "" ? 'selected' : '' }}>
                                             -- None --</option>

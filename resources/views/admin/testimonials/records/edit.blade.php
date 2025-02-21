@@ -19,7 +19,7 @@
                             @method('PUT')
                             <div class="form-group">
                                 <label for="pageCategory">User Email</label>
-                                <select class="form-select" name="email" id="email">
+                                <select class="form-control" name="email" id="email">
                                     <option class="form-control" selected disabled>Select User Email</option>
                                     @foreach ($user as $u)
                                         <option value="{{ $u->id }}"
