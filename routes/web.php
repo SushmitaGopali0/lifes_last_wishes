@@ -109,7 +109,7 @@ Route::resource('allformelements', FormElementController::class)->names('formele
     Route::post('/setting', [SettingController::class, 'store'])->name('admin.setting.store');
     Route::get('/setting/show/{id}', [SettingController::class, 'show'])->name('admin.setting.show');
     Route::get('/setting/edit/{id}', [SettingController::class, 'edit'])->name('admin.setting.edit');
-    Route::put('/setting/{id}', [SettingController::class, 'update'])->name('admin.setting.update');
-    Route::delete('/setting/{id}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
+    Route::put('/setting', [SettingController::class, 'update'])->name('admin.setting.update');
+    Route::post('/setting/{id}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
 
 });

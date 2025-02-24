@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}" />
 
     <!-- toastr css -->
-    <link rel="stylesheet" href="/css/toastr.min.css">
+    <link rel="stylesheet" href="{{ asset('toastcss.css') }}">
     <link href="{{ asset('toastcss.css') }}" rel="stylesheet">
 
     {{-- <link rel="stylesheet" href="{{asset('css/users.css')}}"> --}}
