@@ -58,6 +58,7 @@
                     <div class="mb-3">
                         <label for="type">Element Type:</label>
                         <select name="type" id="type" class="form-control" required>
+                            <option value="" disabled selected>Select Element Type</option>
                             <option value="TEXT">Text</option>
                             <option value="TEXTAREA">Textarea</option>
                             <option value="RADIO">Radio</option>
@@ -65,22 +66,25 @@
                             <option value="DROPDOWN">Dropdown</option>
                         </select>
                     </div>
-                
+                    
                     <div class="mb-3">
                         <label for="label">Element Label:</label>
                         <input type="text" name="label" id="label" class="form-control" required>
                     </div>
-                
+                    
                     <div class="mb-3">
                         <label for="pdf_label">PDF Label:</label>
                         <input type="text" name="pdf_label" id="pdf_label" class="form-control">
                     </div>
-                
-                    <div class="mb-3">
-                        <label for="prefilled_text">Pre-filled Text:</label>
-                        <input type="text" name="prefilled_text" id="prefilled_text" class="form-control">
+
+                    <div id="text-form" style="display: none;">
+                        @include('admin.questionaries.form-groups.elements.text')
                     </div>
                 
+                    <div id="checkbox-form" style="display: none;">
+                        @include('admin.questionaries.form-groups.elements.checkbox')
+                    </div>
+                   
                     <div class="mb-3">
                         <label for="show_in_pdf">Show in PDF:</label>
                         <select name="show_in_pdf" id="show_in_pdf" class="form-control">
@@ -96,11 +100,18 @@
     </div>
 </div>
 
-
 <!-- JavaScript -->
 <script>
+
+document.getElementById("type").addEventListener("change", function () {
+    let selectedType = this.value;
+    document.getElementById("text-form").style.display = selectedType === "TEXT" ? "block" : "none";
+    document.getElementById("checkbox-form").style.display = selectedType === "CHECKBOX" ? "block" : "none";
+
+});
+
    // Open Modal for Adding New Element
-document.getElementById("openModal").addEventListener("click", function () {
+    document.getElementById("openModal").addEventListener("click", function () {
     document.getElementById("elementForm").reset(); // Reset the form fields
     document.getElementById("element_id").value = ''; // Clear hidden input for element ID
     document.querySelector(".modal-title").textContent = "Add Element"; // Set modal title
