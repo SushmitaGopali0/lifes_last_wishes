@@ -59,8 +59,11 @@
             margin-top: 15px;
             margin-bottom: 10px;
         }
+        .container{
+            margin: 390px auto;
+        }
     </style>
-
+    
 <body>
 
 <div class="container mt-4">
@@ -87,7 +90,7 @@
                 addCondition(condition.id, false); // Load existing conditions
             });
         }
-
+ 
         // Function to add new condition
         function addCondition(id = null, saveToStorage = true) {
             conditionCount++;
@@ -172,6 +175,5 @@
         loadConditions();
     });
 </script>
-
 </body>
 @endsection

@@ -21,7 +21,7 @@ class FormElementController extends Controller
             'show_in_pdf' => 'required|boolean',
         ]);
 
-        FormElement::updateOrCreate(
+        FormElement::updateOrCreate( //either store or update data.
             ['id' => $request->element_id], // Update if ID is provided
             [
                 'form_group_id' => $request->form_group_id,
@@ -53,5 +53,4 @@ class FormElementController extends Controller
     return redirect()->route('formgroups.customize', ['formgroup' => $formElement->form_group_id])
                      ->with('success', 'Form element deleted successfully!');
 }
-
 }
