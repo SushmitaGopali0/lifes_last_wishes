@@ -58,7 +58,7 @@
                                                         </select>
                                                     @elseif($setting->type == 'file')
                                                         <input type="file" class="form-control"
-                                                            name="settings[{{ $setting->id }}][value]" />
+                                                            name="settings[{{ $setting->id }}][value]" /><br>
                                                         {{-- Display Current File --}}
                                                         @if ($setting->value && !in_array(pathinfo($setting->value, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif', 'bmp']))
                                                             <p>Current file:
@@ -70,7 +70,7 @@
                                                         @endif
                                                     @elseif($setting->type == 'image')
                                                         <input type="file" class="form-control"
-                                                            name="settings[{{ $setting->id }}][value]" accept="image/*" />
+                                                            name="settings[{{ $setting->id }}][value]" accept="image/*" /><br>
                                                         {{-- Display Current Image --}}
                                                         @if ($setting->value && in_array(pathinfo($setting->value, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif', 'bmp']))
                                                             <img src="{{ asset('uploads/' . $setting->value) }}"
