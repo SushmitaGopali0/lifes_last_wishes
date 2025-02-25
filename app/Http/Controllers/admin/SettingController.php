@@ -88,35 +88,65 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    // public function update(Request $request)
+    // {
+    //     try {
+    //         DB::beginTransaction();
+
+    //         if (!$request->has('settings') || !is_array($request->settings)) {
+    //             return back()->with('error', 'No settings found to update.');
+    //         }
+
+    //         foreach ($request->settings as $settingId => $settingData) {
+    //             $setting = Setting::find($settingId);
+    //             if ($setting) {
+    //                 $setting->value = $settingData['value'] ?? ''; // Ensure 'value' exists
+    //                 $setting->group = $settingData['group'] ?? ''; // Ensure 'group' exists
+    //                 $setting->save();
+    //             }
+    //         }
+
+    //         DB::commit();
+    //         return redirect()->route('admin.setting.index')->with('success', 'Settings updated successfully.');
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         return back()->with('error', 'Something went wrong. ' . $e->getMessage());
+    //     }
+    // }
     public function update(Request $request)
     {
-        foreach ($request->except(['_token', '_method']) as $key => $value) {
-            $setting = Setting::where('key', $key)->first();
-            if ($setting) {
-                if ($setting->type == 'file' || $setting->type == 'image') {
-                    if ($request->hasFile($key)) {
-                        $request->validate([
-                            $key => 'file|mimes:jpg,png,pdf|max:2048',
-                        ]);
+        try {
+            DB::beginTransaction();
 
-                        if ($setting->value) {
-                            Storage::disk('public')->delete($setting->value);
-                        }
-                        $filePath = $request->file($key)->store('settings', 'public');
-                        $setting->value = $filePath;
+            foreach ($request->settings as $settingId => $settingData) {
+                $setting = Setting::find($settingId);
+                if ($setting) {
+                    // Handle file and image uploads
+                    if (isset($settingData['value']) && $request->hasFile("settings.$settingId.value")) {
+                        $file = $request->file("settings.$settingId.value");
+                        $filename = time() . '_' . $file->getClientOriginalName(); // Preserve original filename
+                        $file->move(public_path('uploads'), $filename);
+                        $setting->value = $filename; // Save only the filename
+                    } else {
+                        $setting->value = $settingData['value'] ?? null;
                     }
-                } else {
-                    $setting->value = $value;
+
+                    // Update group
+                    $setting->group = $settingData['group'] ?? $setting->group;
+                    $setting->save();
                 }
-                $setting->save();
             }
+
+            DB::commit();
+            return redirect()->route('admin.setting.index')->with('success', 'Settings updated successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong. ' . $e->getMessage());
         }
-
-        Cache::forget('settings');
-        request()->flashOnly('setting_tab');
-
-        return redirect()->route('admin.setting.index')->with('success', 'Settings updated successfully');
     }
+
+
+
 
 
     /**
@@ -124,15 +154,13 @@ class SettingController extends Controller
      */
     public function destroy(string $id)
     {
-        $setting = Setting::findOrFail($id);
+        try {
+            $setting = Setting::findOrFail($id);
+            $setting->delete();
 
-        // Delete the file if it's a file or image setting
-        if (in_array($setting->type, ['file', 'image']) && $setting->value) {
-            Storage::disk('public')->delete($setting->value);
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to delete setting']);
         }
-
-        $setting->delete();
-
-        return redirect()->route('admin.setting.index')->with('success', 'Setting deleted successfully');
     }
 }
