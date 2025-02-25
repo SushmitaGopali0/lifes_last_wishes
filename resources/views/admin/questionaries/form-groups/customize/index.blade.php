@@ -80,9 +80,21 @@
                     <div id="text-form" style="display: none;">
                         @include('admin.questionaries.form-groups.elements.text')
                     </div>
+
+                    <div id="textarea-form" style="display: none;">
+                        @include('admin.questionaries.form-groups.elements.textarea')
+                    </div>
                 
                     <div id="checkbox-form" style="display: none;">
                         @include('admin.questionaries.form-groups.elements.checkbox')
+                    </div>
+
+                    <div id="radio-form" style="display: none;">
+                        @include('admin.questionaries.form-groups.elements.radio')
+                    </div>
+
+                    <div id="dropdown-form" style="display: none;">
+                        @include('admin.questionaries.form-groups.elements.dropdown')
                     </div>
                    
                     <div class="mb-3">
@@ -100,13 +112,17 @@
     </div>
 </div>
 
-<!-- JavaScript -->
+<script src="{{ asset('js/formbuilder.js') }}"></script>
 <script>
 
-document.getElementById("type").addEventListener("change", function () {
+   //for dynamic form
+    document.getElementById("type").addEventListener("change", function () {
     let selectedType = this.value;
     document.getElementById("text-form").style.display = selectedType === "TEXT" ? "block" : "none";
+    document.getElementById("textarea-form").style.display = selectedType === "TEXTAREA" ? "block" : "none";
     document.getElementById("checkbox-form").style.display = selectedType === "CHECKBOX" ? "block" : "none";
+    document.getElementById("radio-form").style.display = selectedType === "RADIO" ? "block" : "none";
+    document.getElementById("dropdown-form").style.display = selectedType === "DROPDOWN" ? "block" : "none";
 
 });
 
@@ -124,7 +140,7 @@ document.getElementById("type").addEventListener("change", function () {
     button.addEventListener("click", function () {
         const elementId = this.getAttribute('data-id'); // Get the ID of the element
 
-        fetch(`/admin/allformelements/${elementId}/edit`) // fetch json response from server
+        fetch(`/admin/allformelements/${elementId}/edit`) // send get request & fetch json response from server
             .then(response => response.json()) // Convert JSON to JavaScript object
             .then(data => {
                 // Populate the form fields with the fetched data
@@ -132,6 +148,7 @@ document.getElementById("type").addEventListener("change", function () {
                 document.getElementById("label").value = data.label;
                 document.getElementById("pdf_label").value = data.pdf_label;
                 document.getElementById("prefilled_text").value = data.details ? data.details.text : ''; // Handle nested data
+                document.getElementById("prefilled_textarea").value = data.details ? data.details.text : ''; 
                 document.getElementById("show_in_pdf").value = data.show_in_pdf ? 1 : 0;
                 document.getElementById("type").value = data.type;
 
