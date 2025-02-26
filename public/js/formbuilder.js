@@ -7,13 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Radio Add Button
     document.querySelector(".add-radio-option")?.addEventListener("click", function () {
-        let newRow = document.querySelector("#radio-options-list tr").outerHTML; // Clone row
-        document.getElementById("radio-options-list").insertAdjacentHTML("beforeend", newRow); // Add row to table
+        let newRow = document.querySelector("#radio-options-list tr").outerHTML; 
+        document.getElementById("radio-options-list").insertAdjacentHTML("beforeend", newRow); 
     });
     // dropdown Add Button
     document.querySelector(".add-dropdown-option")?.addEventListener("click", function () {
-        let newRow = document.querySelector("#dropdown-options-list tr").outerHTML; // Clone row
-        document.getElementById("dropdown-options-list").insertAdjacentHTML("beforeend", newRow); // Add row to table
+        let newRow = document.querySelector("#dropdown-options-list tr").outerHTML;
+        document.getElementById("dropdown-options-list").insertAdjacentHTML("beforeend", newRow);  
     });
 
     // Remove Button for all
