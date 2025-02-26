@@ -144,14 +144,35 @@
             .then(response => response.json()) // Convert JSON to JavaScript object
             .then(data => {
                 // Populate the form fields with the fetched data
-                document.getElementById("element_id").value = data.id;
-                document.getElementById("label").value = data.label;
-                document.getElementById("pdf_label").value = data.pdf_label;
-                document.getElementById("prefilled_text").value = data.details ? data.details.text : ''; // Handle nested data
-                document.getElementById("prefilled_textarea").value = data.details ? data.details.text : ''; 
+                document.getElementById("element_id").value = data.id; 
+                document.getElementById("label").value = data.label; //data.label is column name
+                document.getElementById("pdf_label").value = data.pdf_label;       
                 document.getElementById("show_in_pdf").value = data.show_in_pdf ? 1 : 0;
-                document.getElementById("type").value = data.type;
+                document.getElementById("type").value = data.type; //from form name=type
 
+                // Handle pre-filled text for TEXT and TEXTAREA
+        let prefilledText = data.details && data.details.pre_filled ? data.details.pre_filled : '';
+        document.getElementById("prefilled_text").value = data.type === "TEXT" ? prefilledText : "";
+        document.getElementById("prefilled_textarea").value = data.type === "TEXTAREA" ? prefilledText : "";
+
+        // Handle options for CHECKBOX and RADIO
+        let optionsContainer = data.type === "CHECKBOX" ? document.getElementById("checkbox-options-list") 
+                                                        : document.getElementById("radio-options-list");
+
+        if (data.type === "CHECKBOX" || data.type === "RADIO") {
+            optionsContainer.innerHTML = ""; // Clear previous options
+            if (data.details && data.details.options) {
+                data.details.options.forEach(option => {
+                    let newRow = `<tr>
+                        <td><input type="text" name="${data.type.toLowerCase()}_options[]" class="form-control" value="${option}"></td>
+                        <td><input type="${data.type === 'CHECKBOX' ? 'checkbox' : 'radio'}" name="default_${data.type.toLowerCase()}_option"></td>
+                        <td><button type="button" class="btn btn-danger remove-option">❌</button></td>
+                    </tr>`;
+                    optionsContainer.insertAdjacentHTML('beforeend', newRow);
+                });
+            }
+
+        }
                 // Change modal title to "Edit Element"
                 document.querySelector(".modal-title").textContent = "Edit Element";
 
