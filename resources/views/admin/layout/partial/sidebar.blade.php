@@ -20,8 +20,6 @@
         </div>
       </li>
 
-
-
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <i class="mdi mdi-content-save menu-icon"></i>
@@ -38,6 +36,13 @@
           </ul>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="mdi mdi-folder-image menu-icon"></i>
+          <span class="menu-title">Media</span>
+        </a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <i class="mdi mdi-bell menu-icon"></i>
@@ -80,7 +85,18 @@
           </ul>
         </div>
       </li>
-
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="mdi mdi-message menu-icon"></i>
+          <span class="menu-title">Contact Message</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="mdi mdi-book-open-page-variant menu-icon"></i>
+          <span class="menu-title">Manifestos</span>
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <i class="mdi mdi-account-multiple menu-icon"></i>
