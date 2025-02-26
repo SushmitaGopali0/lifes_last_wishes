@@ -9,12 +9,16 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\FormElementController;
 use App\Http\Controllers\admin\FormGroupController;
 use App\Http\Controllers\admin\NewsletterController;
+use App\Http\Controllers\admin\NewsletterSettingController;
 use App\Http\Controllers\admin\PageCategoryController;
 use App\Http\Controllers\admin\PageController;
+use App\Http\Controllers\admin\PageSettingController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\PostCategoryController;
 use App\Http\Controllers\admin\PostController;
+use App\Http\Controllers\admin\SubscriptionSettingController;
 use App\Http\Controllers\admin\TestimonialController;
+use App\Http\Controllers\admin\TestimonialSettingController;
 use App\Http\Controllers\admin\UserManagementController;
 
 
@@ -105,11 +109,32 @@ Route::resource('allformelements', FormElementController::class)->names('formele
 
     //Setting
     Route::get('/setting', [SettingController::class, 'index'])->name('admin.setting.index');
-    Route::get('/setting/create', [SettingController::class, 'create'])->name('admin.setting.create');
     Route::post('/setting', [SettingController::class, 'store'])->name('admin.setting.store');
-    Route::get('/setting/show/{id}', [SettingController::class, 'show'])->name('admin.setting.show');
-    Route::get('/setting/edit/{id}', [SettingController::class, 'edit'])->name('admin.setting.edit');
     Route::put('/setting', [SettingController::class, 'update'])->name('admin.setting.update');
     Route::delete('/setting/{id}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
+
+    //Testimonial Setting
+    Route::get('/testimonial-setting', [TestimonialSettingController::class, 'index'])->name('admin.testimonial-setting.index');
+    Route::post('/testimonial-setting', [TestimonialSettingController::class, 'store'])->name('admin.testimonial-setting.store');
+    Route::put('/testimonial-setting', [TestimonialSettingController::class, 'update'])->name('admin.testimonial-setting.update');
+    Route::delete('/testimonial-setting/{id}', [TestimonialSettingController::class, 'destroy'])->name('admin.testimonial-setting.destroy');
+
+    //Newsletter Setting
+    Route::get('/newsletter-setting', [NewsletterSettingController::class, 'index'])->name('admin.newsletter-setting.index');
+    Route::post('/newsletter-setting', [NewsletterSettingController::class, 'store'])->name('admin.newsletter-setting.store');
+    Route::put('/newsletter-setting', [NewsletterSettingController::class, 'update'])->name('admin.newsletter-setting.update');
+    Route::delete('/newsletter-setting/{id}', [NewsletterSettingController::class, 'destroy'])->name('admin.newsletter-setting.destroy');
+
+    //Page Setting
+    Route::get('/page-setting', [PageSettingController::class, 'index'])->name('admin.page-setting.index');
+    Route::post('/page-setting', [PageSettingController::class, 'store'])->name('admin.page-setting.store');
+    Route::put('/page-setting', [PageSettingController::class, 'update'])->name('admin.page-setting.update');
+    Route::delete('/page-setting/{id}', [PageSettingController::class, 'destroy'])->name('admin.page-setting.destroy');
+
+    //Subscription Setting
+    Route::get('/subscription-setting', [SubscriptionSettingController::class, 'index'])->name('admin.subscription-setting.index');
+    Route::post('/subscription-setting', [SubscriptionSettingController::class, 'store'])->name('admin.subscription-setting.store');
+    Route::put('/subscription-setting', [SubscriptionSettingController::class, 'update'])->name('admin.subscription-setting.update');
+    Route::delete('/subscription-setting/{id}', [SubscriptionSettingController::class, 'destroy'])->name('admin.subscription-setting.destroy');
 
 });

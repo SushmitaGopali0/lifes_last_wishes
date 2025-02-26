@@ -14,10 +14,10 @@
         <div style="margin-left: 40px;">
             <div class="row">
                 <div class="tab-content">
-                    @foreach ($settings as $group => $group_settings)
+                    @foreach ($groupedSettings as $group => $group_settings)
                         <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="tab-{{ Str::slug($group) }}"
                             role="tabpanel">
-                            <form action="{{ route('admin.setting.update') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.testimonial-setting.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="settings-group">
@@ -82,9 +82,7 @@
                                                                 alt="Uploaded Image" width="500">
                                                         @endif
                                                     @endif
-
                                                 </div>
-
                                                 <div class="col-sm-2">
                                                     <select class="form-select"
                                                         name="settings[{{ $setting->id }}][group]">
@@ -96,7 +94,6 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-
                                                 <div class="col-sm-1">
                                                     <button type="button" class="btn btn-danger delete-setting"
                                                         style="background: none; border: none; padding: 0;"
@@ -235,3 +232,4 @@
         });
     </script>
 @endpush
+

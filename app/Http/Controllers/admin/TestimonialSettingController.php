@@ -7,20 +7,29 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class SettingController extends Controller
+class TestimonialSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // Fetch all unique groups from the database
-        $groups = Setting::distinct()->pluck('group');
-        $settings = Setting::all()->groupBy('group');
-        return view('admin.setting.index', compact('groups', 'settings'));
+        // Define the groups you want to display under "testimonial" section
+        $testimonialGroups = ['testimonial'];  // Add any group names you want to include
+
+        // Fetch settings where the group is part of the specified groups
+        $settings = Setting::whereIn('group', $testimonialGroups)->get();
+
+        // Group settings by their group name
+        $groupedSettings = $settings->groupBy('group');
+
+        // Get all unique groups for the tabs
+        $groups = $settings->pluck('group')->unique();
+
+        return view('admin.testimonials.settings.index', compact('groups', 'groupedSettings'));
+
     }
 
     /**
@@ -61,7 +70,7 @@ class SettingController extends Controller
             DB::commit();
             Cache::forget('settings');
 
-            return redirect()->route('admin.setting.index')->with('success', 'Setting is stored');
+            return redirect()->route('admin.testimonial-setting.index')->with('success', 'Setting is stored');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Something went wrong. ' . $e->getMessage());
@@ -97,11 +106,25 @@ class SettingController extends Controller
                 $setting = Setting::find($settingId);
                 if ($setting) {
                     // Handle file and image uploads
-                    if (isset($settingData['value']) && $request->hasFile("settings.$settingId.value")) {
+                    if ($request->hasFile("settings.$settingId.value")) {
                         $file = $request->file("settings.$settingId.value");
-                        $filename = time() . '_' . $file->getClientOriginalName(); // Preserve original filename
+
+                        // Validate file type
+                        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'pdf', 'doc', 'docx'];
+                        $extension = $file->getClientOriginalExtension();
+                        if (!in_array($extension, $allowedTypes)) {
+                            throw new \Exception("Invalid file type for setting: {$setting->name}");
+                        }
+
+                        // Delete old file if it exists
+                        if ($setting->value && file_exists(public_path('uploads/' . $setting->value))) {
+                            unlink(public_path('uploads/' . $setting->value));
+                        }
+
+                        // Save new file
+                        $filename = time() . '_' . $file->getClientOriginalName();
                         $file->move(public_path('uploads'), $filename);
-                        $setting->value = $filename; // Save only the filename
+                        $setting->value = $filename;
                     } else {
                         $setting->value = $settingData['value'] ?? null;
                     }
@@ -113,16 +136,12 @@ class SettingController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.setting.index')->with('success', 'Settings updated successfully.');
+            return redirect()->route('admin.testimonial-setting.index')->with('success', 'Settings updated successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Something went wrong. ' . $e->getMessage());
         }
     }
-
-
-
-
 
     /**
      * Remove the specified resource from storage.

@@ -24,7 +24,7 @@
 
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-          <i class="mdi mdi-content-copy menu-icon"></i>
+          <i class="mdi mdi-content-save menu-icon"></i>
           <span class="menu-title">Content</span>
           <i class="menu-arrow"></i>
         </a>
@@ -34,7 +34,23 @@
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.post-category.index') }}">Post Categories</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.page.index') }}">Pages</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.page-category.index') }}">Page Categories</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{ route('roles.index') }}">Page Settings</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.page-setting.index') }}">Page Settings</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+          <i class="mdi mdi-bell menu-icon"></i>
+          <span class="menu-title">Subscriptions</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="ui-basic">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.post.index') }}">Coupons</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.post-category.index') }}">Plans</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.page.index') }}">Members</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.page-category.index') }}">Payment History</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.subscription-setting.index') }}">Settings</a></li>
           </ul>
         </div>
       </li>
@@ -47,7 +63,7 @@
         <div class="collapse" id="auth">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.newsletter.index') }}"> Subscribers </a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> Settings </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.newsletter-setting.index') }}"> Settings </a></li>
           </ul>
         </div>
       </li>
@@ -60,7 +76,7 @@
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.testimonial.index') }}">Records</a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Settings</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.testimonial-setting.index') }}">Settings</a></li>
           </ul>
         </div>
       </li>
