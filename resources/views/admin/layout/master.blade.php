@@ -21,6 +21,9 @@
 
     {{-- <link rel="stylesheet" href="{{asset('css/users.css')}}"> --}}
 
+    <style>
+        .cke_notification { display: none !important; }
+    </style>
     @stack('css')
 
 </head>
@@ -167,6 +170,19 @@
                 error: function(xhr) {
                     toastr.error("Something went wrong: " + xhr.responseText);
                 }
+            });
+        });
+    });
+</script>
+
+<!-- Custom JS for CKEditor -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.ckeditor').forEach(editor => {
+            CKEDITOR.replace(editor.id, {
+                removePlugins: 'a11ychecker,notification', // Disable notifications
+                disableNativeSpellChecker: false,
+                notification_duration: 1
             });
         });
     });

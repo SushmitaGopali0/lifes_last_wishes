@@ -70,7 +70,8 @@
                                                         @endif
                                                     @elseif($setting->type == 'image')
                                                         <input type="file" class="form-control"
-                                                            name="settings[{{ $setting->id }}][value]" accept="image/*" /><br>
+                                                            name="settings[{{ $setting->id }}][value]"
+                                                            accept="image/*" /><br>
                                                         {{-- Display Current Image --}}
                                                         @if ($setting->value && in_array(pathinfo($setting->value, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif', 'bmp']))
                                                             <img src="{{ asset('uploads/' . $setting->value) }}"
@@ -191,6 +192,7 @@
             height: 500
         });
     </script>
+
     <!-- End custom js for this page-->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -228,3 +230,5 @@
         });
     </script>
 @endpush
+
+
