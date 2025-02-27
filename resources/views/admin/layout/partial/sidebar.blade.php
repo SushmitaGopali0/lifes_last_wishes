@@ -51,7 +51,7 @@
         </a>
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.post.index') }}">Coupons</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('admin.coupon.index') }}">Coupons</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.post-category.index') }}">Plans</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.page.index') }}">Members</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{ route('admin.page-category.index') }}">Payment History</a></li>

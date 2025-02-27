@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\admin\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -137,4 +138,13 @@ Route::resource('allformelements', FormElementController::class)->names('formele
     Route::put('/subscription-setting', [SubscriptionSettingController::class, 'update'])->name('admin.subscription-setting.update');
     Route::delete('/subscription-setting/{id}', [SubscriptionSettingController::class, 'destroy'])->name('admin.subscription-setting.destroy');
 
+    //Coupon
+    Route::get('/coupon', [CouponController::class, 'index'])->name('admin.coupon.index');
+    Route::get('/coupon/create', [CouponController::class, 'create'])->name('admin.coupon.create');
+    Route::post('/coupon', [CouponController::class, 'store'])->name('admin.coupon.store');
+    Route::get('/coupon/show/{id}', [CouponController::class, 'show'])->name('admin.coupon.show');
+    Route::get('/coupon/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupon.edit');
+    Route::put('/coupon/{id}', [CouponController::class, 'update'])->name('admin.coupon.update');
+    Route::delete('/coupon/{id}', [CouponController::class, 'destroy'])->name('admin.coupon.destroy');
+    Route::delete('/coupon', [CouponController::class, 'destroyAll'])->name('admin.coupon.destroyall');
 });
