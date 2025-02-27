@@ -23,20 +23,21 @@ class FormElementController extends Controller
         'radio_options' => 'nullable|array',
         'show_in_pdf' => 'required|boolean',
     ]);
-
-    // Prepare details based on element type
+ 
+    // store form data based on element type
     $details = [];
 
     if ($request->type === "TEXT" || $request->type === "TEXTAREA") {
         $details['pre_filled'] = $request->type === "TEXT" ? $request->prefilled_text_text : $request->prefilled_text_textarea;
     } elseif ($request->type === "CHECKBOX") {
-        $details['options'] = $request->checkbox_options ?? [];
+        $details['options'] = array_unique(($request->checkbox_options ?? []));
     } elseif ($request->type === "RADIO") {
-        $details['options'] = $request->radio_options ?? [];
+        $details['options'] = array_unique(($request->radio_options ?? []));
     }
     
+    
     FormElement::updateOrCreate(
-        ['id' => $request->element_id],
+        ['id' => $request->element_id], //updates if element_id exists.
         [
             'form_group_id' => $request->form_group_id,
             'type' => $request->type,
@@ -51,7 +52,6 @@ class FormElementController extends Controller
     return redirect()->route('formgroups.customize', ['formgroup' => $request->form_group_id])
                      ->with('success', 'Element updated successfully!');
 }
-
 
     public function edit($id)
     {

@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody id="checkbox-options-list">
-            <tr>
+            <tr> 
                 <td><input type="text" name="checkbox_options[]" class="form-control" placeholder="Enter a value"></td>
                 <td><input type="checkbox" name="default_checkbox_option[]"></td>
                 <td><button type="button" class="btn btn-danger remove-option">❌</button></td>
