@@ -28,7 +28,8 @@ class FormGroupController extends Controller
      public function condition($id)
      {
          $formGroup = FormGroup::with('elements')->findOrFail($id);
-         return view('admin.questionaries.form-groups.condition.index', compact('formGroup'));
+         $formElements = FormElement::where('form_group_id', $id)->get(); // Fetch form elements dynamically
+         return view('admin.questionaries.form-groups.condition.index', compact('formGroup','formElements'));
      }  
      
     public function index()
