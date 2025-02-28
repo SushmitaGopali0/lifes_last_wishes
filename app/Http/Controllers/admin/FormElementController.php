@@ -21,6 +21,7 @@ class FormElementController extends Controller
         'prefilled_text_textarea' => 'nullable|string',
         'checkbox_options' => 'nullable|array',
         'radio_options' => 'nullable|array',
+        'dropdown_options' => 'nullable|array',
         'show_in_pdf' => 'required|boolean',
     ]);
  
@@ -33,8 +34,9 @@ class FormElementController extends Controller
         $details['options'] = array_unique(($request->checkbox_options ?? []));
     } elseif ($request->type === "RADIO") {
         $details['options'] = array_unique(($request->radio_options ?? []));
+    } elseif ($request->type === "DROPDOWN") { 
+        $details['options'] = array_unique(($request->dropdown_options ?? []));
     }
-    
     
     FormElement::updateOrCreate(
         ['id' => $request->element_id], //updates if element_id exists.

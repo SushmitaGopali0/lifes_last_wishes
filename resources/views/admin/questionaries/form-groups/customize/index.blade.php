@@ -162,12 +162,13 @@
             : document.getElementById("dropdown-options-list");
 
             if (data.type === "CHECKBOX" || data.type === "RADIO" || data.type === "DROPDOWN") {  
-            optionsContainer.innerHTML = ""; // Clear previous data & show latest options data.
+             optionsContainer.innerHTML = ""; // Clear previous data & show latest options data.
             if (data.details && data.details.options) {
                 data.details.options.forEach(option => { //fetch data from database.
                     let newRow = `<tr>
                         <td><input type="text" name="${data.type.toLowerCase()}_options[]" class="form-control" value="${option}"></td>
-                        <td><input type="${data.type === 'CHECKBOX' ? 'checkbox' : 'radio'}" name="default_${data.type.toLowerCase()}_option"></td>
+                        <td><input type="${data.type === 'CHECKBOX' ? 'checkbox' : data.type === 'RADIO' ? 'radio' : 'radio'}" 
+                         name="default_${data.type.toLowerCase()}_option"></td>
                         <td><button type="button" class="btn btn-danger remove-option">❌</button></td>
                     </tr>`;
                     optionsContainer.insertAdjacentHTML('beforeend', newRow);
