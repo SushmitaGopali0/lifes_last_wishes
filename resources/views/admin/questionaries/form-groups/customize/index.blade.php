@@ -150,6 +150,11 @@
                 document.getElementById("show_in_pdf").value = data.show_in_pdf ? 1 : 0;
                 document.getElementById("type").value = data.type; //from form name=type
  
+                //display form interms of selected element type. 
+                let typeSelect = document.getElementById("type");
+                typeSelect.value = data.type; 
+                typeSelect.dispatchEvent(new Event("change"));
+    
             // Handle pre-filled text for TEXT and TEXTAREA
             let prefilledText = data.details && data.details.pre_filled ? data.details.pre_filled : '';
             document.getElementById("prefilled_text").value = data.type === "TEXT" ? prefilledText : "";
