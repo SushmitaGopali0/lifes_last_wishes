@@ -1,9 +1,7 @@
 @extends('admin.layout.master')
 
 @section('body')
-  
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         .condition-box {
             border-radius: 5px;
@@ -64,116 +62,85 @@
         }
     </style>
     
-<body>
+    <body>
 
-<div class="container mt-4">
-    <h4>
-        📌 Add Conditions to Form Group (special event)
-        <button id="addCondition" class="btn btn-success ms-3">+ New Condition</button>
-    </h4>
-
-    <div id="conditionContainer">
-        <!-- Conditions will be added here dynamically -->
-    </div>
-</div>
-
-<script>
-    $(document).ready(function () {
-        let conditionCount = 0;
-
-        // Load conditions from localStorage
-        function loadConditions() {
-            let savedConditions = JSON.parse(localStorage.getItem("conditions")) || [];
-            conditionCount = savedConditions.length; // Set count based on saved data
-
-            savedConditions.forEach(condition => {
-                addCondition(condition.id, false); // Load existing conditions
+        <div class="container mt-4">
+            <h4>
+                📌 Add Conditions to Form Group (special event)
+                <button id="addCondition" class="btn btn-success ms-3">+ New Condition</button>
+            </h4>
+    
+            <div id="conditionContainer">
+                <!-- Conditions will be added here dynamically -->
+            </div>
+        </div>
+    
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                let conditionCount = 0;
+    
+                function addCondition() {
+                    conditionCount++;
+                    let newRow = `
+                        <div class="condition-box border shadow-sm" id="condition-${conditionCount}">
+                            <div class="condition-header">
+                                <h5>Condition ${conditionCount}</h5>
+                                <span class="dropdown-arrow toggleArrow">🔽</span>
+                                <button type="button" class="btn btn-danger remove-condition" data-id="${conditionCount}">❌</button>
+                            </div>
+                            <div class="condition-body" style="display: none;">
+                                <h6 class="mb-3">When</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Form Element</label>
+                                    <select class="form-select">
+                                        <option>Do you have wish to travel?</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Condition</label>
+                                    <select class="form-select">
+                                        <option>Equals to</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Value</label>
+                                    <input type="text" class="form-control" value="yes">
+                                </div>
+                                <h6 class="mb-3">Do</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Action</label>
+                                        <select class="form-select">
+                                            <option>Show</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Form Element</label>
+                                        <select class="form-select">
+                                            <option>Do you have wish to attend event?</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-save">Save</button>
+                            </div>
+                        </div>`;
+                    $("#conditionContainer").append(newRow);
+                }
+    
+                $("#addCondition").click(function () {
+                    addCondition();
+                });
+    
+                $(document).on("click", ".toggleArrow", function () {
+                    $(this).closest(".condition-box").find(".condition-body").slideToggle(); // Show/Hide form
+                });
+    
+                $(document).on("click", ".remove-condition", function () {
+                    $(this).closest(".condition-box").remove();
+                });
             });
-        }
- 
-        // Function to add new condition
-        function addCondition(id = null, saveToStorage = true) {
-            conditionCount++;
-            let conditionId = id ? id : conditionCount;
-
-            let newCondition = `
-                <div class="condition-box border shadow-sm" id="condition-${conditionId}">
-                    <div class="condition-header">
-                        <h5>Condition ${conditionId}</h5>
-                        <span class="dropdown-arrow toggleArrow">🔽</span>
-                        <button class="delete-btn" onclick="removeCondition(${conditionId})">❌</button>
-                    </div>
-                    <div class="condition-body">
-                        <h6 class="mb-3">When</h6>
-                        <div class="mb-3">
-                            <label class="form-label">Form Element</label>
-                            <select class="form-select">
-                                <option>Do you have wish to travel?</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Condition</label>
-                            <select class="form-select">
-                                <option>Equals to</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Value</label>
-                            <input type="text" class="form-control" value="yes">
-                        </div>
-                        <h6 class="mb-3">Do</h6>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="form-label">Action</label>
-                                <select class="form-select">
-                                    <option>Show</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Form Element</label>
-                                <select class="form-select">
-                                    <option>Do you have wish to attend event?</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary btn-save">Save</button>
-                    </div>
-                </div>
-            `;
-            $("#conditionContainer").append(newCondition);
-
-            // Save to localStorage
-            if (saveToStorage) {
-                let conditions = JSON.parse(localStorage.getItem("conditions")) || [];
-                conditions.push({ id: conditionId });
-                localStorage.setItem("conditions", JSON.stringify(conditions));
-            }
-        }
-
-        // Add condition on button click
-        $("#addCondition").click(function () {
-            addCondition();
-        });
-
-        // Toggle condition body
-        $(document).on("click", ".toggleArrow", function () {
-            $(this).closest(".condition-box").find(".condition-body").slideToggle();
-            $(this).toggleClass("rotate");
-        });
-
-        // Remove condition function
-        window.removeCondition = function (id) {
-            $("#condition-" + id).remove();
-
-            // Remove from localStorage
-            let conditions = JSON.parse(localStorage.getItem("conditions")) || [];
-            conditions = conditions.filter(condition => condition.id !== id);
-            localStorage.setItem("conditions", JSON.stringify(conditions));
-        };
-
-        // Load saved conditions on page load
-        loadConditions();
-    });
-</script>
-</body>
+        </script>
+    
+    </body>      
 @endsection
