@@ -155,7 +155,7 @@
             document.getElementById("prefilled_text").value = data.type === "TEXT" ? prefilledText : "";
             document.getElementById("prefilled_textarea").value = data.type === "TEXTAREA" ? prefilledText : "";
 
-  
+
         // Display saved options data for CHECKBOX or RADIO dynamically when editing.
             let optionsContainer = data.type === "CHECKBOX" ? document.getElementById("checkbox-options-list") 
             : data.type === "RADIO" ? document.getElementById("radio-options-list")       
@@ -167,8 +167,8 @@
                 data.details.options.forEach(option => { //fetch data from database.
                     let newRow = `<tr>
                         <td><input type="text" name="${data.type.toLowerCase()}_options[]" class="form-control" value="${option}"></td>
-                        <td><input type="${data.type === 'CHECKBOX' ? 'checkbox' : data.type === 'RADIO' ? 'radio' : 'radio'}" 
-                         name="default_${data.type.toLowerCase()}_option"></td>
+                       <td><input type="${data.type === 'CHECKBOX' ? 'checkbox' : data.type === 'RADIO' ? 'radio' : data.type === 'DROPDOWN' ? 'radio' : ''}" 
+                        name="default_${data.type.toLowerCase()}_option"></td>
                         <td><button type="button" class="btn btn-danger remove-option">❌</button></td>
                     </tr>`;
                     optionsContainer.insertAdjacentHTML('beforeend', newRow);
