@@ -81,7 +81,7 @@
         <script>
             $(document).ready(function () {
                 let conditionCount = 0;
-    
+        
                 function addCondition() {
                     conditionCount++;
                     let newRow = `
@@ -98,15 +98,15 @@
                                     <select class="form-select">
                                         <option value="" disabled selected>Select Form Element</option>
                                         @foreach($formElements as $element)
-                                       <option value="{{ $element->id }}">{{ $element->label }}</option>
-                                       @endforeach
+                                        <option value="{{ $element->id }}">{{ $element->label }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Condition</label>
                                     <select class="form-select">
                                         <option>Equals to</option>
-                                        <option>Doesnot equal to</option>
+                                        <option>Does not equal to</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
@@ -114,43 +114,29 @@
                                     <input type="text" class="form-control" value="yes">
                                 </div>
                                 <h6 class="mb-3">Do</h6>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label class="form-label">Action</label>
-                                        <select class="form-select">
-                                            <option>Show</option>
-                                            <option>Hide</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <label class="form-label">Form Element</label>
-                                        <select class="form-select">
-                                            <option value="" disabled selected>Select Form Element</option>
-                                            @foreach($formElements as $element)
-                                           <option value="{{ $element->id }}">{{ $element->label }}</option>
-                                           @endforeach
-                                        </select>
-                                    </div>
+                                <div class="condition-options-wrapper">
+                                    @include('admin.questionaries.form-groups.condition.condition-form') <!-- Including the form -->
                                 </div>
-                                <button class="btn btn-primary btn-save">Save</button>
+                                <button class="btn btn-primary btn-save mt-3">Save</button>
                             </div>
                         </div>`;
                     $("#conditionContainer").append(newRow);
                 }
-    
+        
                 $("#addCondition").click(function () {
                     addCondition();
                 });
-
+        
                 $(document).on("click", ".toggleArrow", function () {
-                    $(this).closest(".condition-box").find(".condition-body").slideToggle(); // Show/Hide form
+                    $(this).closest(".condition-box").find(".condition-body").slideToggle();
                 });
-    
+        
                 $(document).on("click", ".remove-condition", function () {
                     $(this).closest(".condition-box").remove();
                 });
-            }); 
+            });
         </script>
-    
+        <script src="{{ asset('js/condition-form.js') }}"></script>
+
     </body>      
 @endsection
