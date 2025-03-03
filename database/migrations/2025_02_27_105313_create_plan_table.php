@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('plan', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('parent_id')->nullable();
+            $table->string('title');
+            $table->longText('description');
+            $table->unsignedInteger('duration');
+            $table->unsignedInteger('price');
+            $table->string('type')->default('General');
+            $table->string('status')->default('Active');
             $table->timestamps();
         });
     }

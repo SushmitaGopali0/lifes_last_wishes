@@ -15,6 +15,7 @@ use App\Http\Controllers\admin\PageCategoryController;
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\PageSettingController;
 use App\Http\Controllers\admin\PermissionController;
+use App\Http\Controllers\admin\PlanController;
 use App\Http\Controllers\admin\PostCategoryController;
 use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\admin\SubscriptionSettingController;
@@ -50,10 +51,15 @@ Route::resource('allformelements', FormElementController::class)->names('formele
     //Testimonials
     Route::get('/testimonial', [TestimonialController::class, 'index'])->name('admin.testimonial.index');
     Route::get('/testimonial/create', [TestimonialController::class, 'create'])->name('admin.testimonial.create');
+    Route::get('/customized-testimonial/create', [TestimonialController::class, 'createCustomized'])->name('admin.customized-testimonial.create');
     Route::post('/testimonial', [TestimonialController::class, 'store'])->name('admin.testimonial.store');
+    Route::post('/customized-testimonial', [TestimonialController::class, 'storeCustomized'])->name('admin.customized-testimonial.store');
     Route::get('/testimonial/show/{id}', [TestimonialController::class, 'show'])->name('admin.testimonial.show');
+    Route::get('/customized-testimonial/show/{id}', [TestimonialController::class, 'showCustomized'])->name('admin.customized-testimonial.show');
     Route::get('/testimonial/edit/{id}', [TestimonialController::class, 'edit'])->name('admin.testimonial.edit');
+    Route::get('/customized-testimonial/edit/{id}', [TestimonialController::class, 'editCustomized'])->name('admin.customized-testimonial.edit');
     Route::put('/testimonial/{id}', [TestimonialController::class, 'update'])->name('admin.testimonial.update');
+    Route::put('/customized-testimonial/{id}', [TestimonialController::class, 'updateCustomized'])->name('admin.customized-testimonial.update');
     Route::delete('/testimonial/{id}', [TestimonialController::class, 'destroy'])->name('admin.testimonial.destroy');
     Route::delete('/testimonial', [TestimonialController::class, 'destroyAll'])->name('admin.testimonial.destroyall');
 
@@ -147,4 +153,14 @@ Route::resource('allformelements', FormElementController::class)->names('formele
     Route::put('/coupon/{id}', [CouponController::class, 'update'])->name('admin.coupon.update');
     Route::delete('/coupon/{id}', [CouponController::class, 'destroy'])->name('admin.coupon.destroy');
     Route::delete('/coupon', [CouponController::class, 'destroyAll'])->name('admin.coupon.destroyall');
+
+    //Plan
+    Route::get('/plan', [PlanController::class, 'index'])->name('admin.plan.index');
+    Route::get('/plan/create', [PlanController::class, 'create'])->name('admin.plan.create');
+    Route::post('/plan', [PlanController::class, 'store'])->name('admin.plan.store');
+    Route::get('/plan/show/{id}', [PlanController::class, 'show'])->name('admin.plan.show');
+    Route::get('/plan/edit/{id}', [PlanController::class, 'edit'])->name('admin.plan.edit');
+    Route::put('/plan/{id}', [PlanController::class, 'update'])->name('admin.plan.update');
+    Route::delete('/plan/{id}', [PlanController::class, 'destroy'])->name('admin.plan.destroy');
+    Route::delete('/plan', [PlanController::class, 'destroyAll'])->name('admin.plan.destroyall');
 });

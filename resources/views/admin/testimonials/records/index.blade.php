@@ -6,9 +6,12 @@
                 <a href="{{ route('admin.testimonial.create') }}"><button type="button"
                         class="btn btn-primary btn-rounded btn-fw">Add
                         Testimonial</button></a>
-                        <a href="{{ route('admin.testimonial.destroyall') }}" id="deleteAllSelectedRecord"><button type="button"
-                            class="btn btn-danger btn-rounded btn-fw">Delete All
-                            Selected </button></a>
+                <a href="{{ route('admin.customized-testimonial.create') }}"><button type="button"
+                        class="btn btn-success btn-rounded btn-fw">Add
+                        Customized Testimonial</button></a>
+                <a href="{{ route('admin.testimonial.destroyall') }}" id="deleteAllSelectedRecord"><button type="button"
+                        class="btn btn-danger btn-rounded btn-fw">Delete All
+                        Selected </button></a>
             </div>
         </div>
     </div>
@@ -31,24 +34,28 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($testimonial as $t)
-                                    <tr id="delete_id{{ $t->id }}">
-                                        <td><input type="checkbox" class="checkbox_item" name="ids"
-                                                value="{{ $t->id }}"></td>
-                                            <td>{{ $t->useremail->email ?? '' }}</td>
+                                        <tr id="delete_id{{ $t->id }}">
+                                            <td><input type="checkbox" class="checkbox_item" name="ids"
+                                                    value="{{ $t->id }}"></td>
+                                            <td>{{ $t->user_id ? $t->useremail->email : $t->email ?? '' }}</td>
                                             <td>{{ $t->title }}</td>
                                             <td>{{ ucfirst($t->status) }}</td>
-                                            <td><a href="{{ route('admin.testimonial.show', ['id' => $t->id]) }}">
+                                            <td><a
+                                                    href="{{ $t->user_id ? route('admin.testimonial.show', ['id' => $t->id]) : route('admin.customized-testimonial.show', ['id' => $t->id]) }}">
                                                     <i class="mdi mdi-view-list" style="font-size: 25px; color:blue"></i>
                                                 </a>
-                                                <a href="{{ route('admin.testimonial.edit', ['id' => $t->id]) }}">
+                                                <a href="{{ $t->user_id ? route('admin.testimonial.edit', ['id' => $t->id]) : route('admin.customized-testimonial.edit', ['id' => $t->id]) }}">
                                                     <i class="mdi mdi-pencil-box-outline"
                                                         style="font-size: 25px; color:green"></i>
                                                 </a>
                                                 <!-- Delete Form -->
-                                                <form action="{{ route('admin.testimonial.destroy', ['id' => $t->id]) }}" method="POST" style="display:inline;">
+                                                <form action="{{ route('admin.testimonial.destroy', ['id' => $t->id]) }}"
+                                                    method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this testimonial?')" style="background: none; border: none; padding: 0;">
+                                                    <button type="submit"
+                                                        onclick="return confirm('Are you sure you want to delete this testimonial?')"
+                                                        style="background: none; border: none; padding: 0;">
                                                         <i class="mdi mdi-delete" style="font-size: 25px; color:red"></i>
                                                     </button>
                                                 </form>
@@ -67,4 +74,3 @@
         </div>
     </div>
 @endsection
-

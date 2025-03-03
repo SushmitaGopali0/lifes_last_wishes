@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('email')->nullable();
             $table->string('title');
             $table->text('message');
             $table->string('job_title')->nullable();
