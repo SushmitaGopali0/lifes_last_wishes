@@ -25,12 +25,29 @@ class FormGroupController extends Controller
          $formGroup = FormGroup::with('elements')->findOrFail($id);
          return view('admin.questionaries.form-groups.preview.index', compact('formGroup'));
      }
-     public function condition($id)
-     {
-         $formGroup = FormGroup::with('elements')->findOrFail($id);
-         $formElements = FormElement::where('form_group_id', $id)->get(); // Fetch form elements dynamically
-         return view('admin.questionaries.form-groups.condition.index', compact('formGroup','formElements'));
-     }  
+     
+     public function condition(Request $request, $id)
+{
+    $formGroup = FormGroup::with('elements')->findOrFail($id);
+    $formElements = FormElement::where('form_group_id', $id)->get();
+
+    // Get the selected form element ID from the request
+    $selectedElementId = $request->input('form_element_id');
+    $selectedElement = null;
+    $options = [];
+
+    // Fetch the selected element if an ID is provided
+    if ($selectedElementId) {
+        $selectedElement = FormElement::find($selectedElementId);
+        
+        // Fetch options only if the selected element is of type CHECKBOX, RADIO, or DROPDOWN
+        if ($selectedElement && in_array($selectedElement->type, ['CHECKBOX', 'RADIO', 'DROPDOWN'])) {
+            $options = $selectedElement->details['options'] ?? [];
+        }
+    }
+
+    return view('admin.questionaries.form-groups.condition.index', compact('formGroup', 'formElements', 'selectedElementId', 'selectedElement', 'options'));
+}
      
     public function index()
     {

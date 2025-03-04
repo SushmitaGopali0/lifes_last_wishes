@@ -91,34 +91,54 @@
                                 <span class="dropdown-arrow toggleArrow">🔽</span>
                                 <button type="button" class="btn btn-danger remove-condition" data-id="${conditionCount}">❌</button>
                             </div>
-                            <div class="condition-body" style="display: none;">
-                                <h6 class="mb-3">When</h6>
-                                <div class="mb-3">
-                                    <label class="form-label">Form Element</label>
-                                    <select class="form-select">
-                                        <option value="" disabled selected>Select Form Element</option>
-                                        @foreach($formElements as $element)
-                                        <option value="{{ $element->id }}">{{ $element->label }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Condition</label>
-                                    <select class="form-select">
-                                        <option>Equals to</option>
-                                        <option>Does not equal to</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Value</label>
-                                    <input type="text" class="form-control" value="yes">
-                                </div>
-                                <h6 class="mb-3">Do</h6>
-                                <div class="condition-options-wrapper">
-                                    @include('admin.questionaries.form-groups.condition.condition-form') <!-- Including the form -->
-                                </div>
-                                <button class="btn btn-primary btn-save mt-3">Save</button>
-                            </div>
+                       <div class="condition-body" style="display: none;">
+                <h6 class="mb-3">When</h6>
+                <div class="mb-3">
+                    <form method="GET" action="{{ route('formgroups.condition', $formGroup->id) }}">
+                        <label class="form-label">Form Element</label>
+                        <select class="form-select" name="form_element_id" onchange="this.form.submit()">
+                            <option value="" disabled {{ empty($selectedElementId) ? 'selected' : '' }}>Select Form Element</option>
+                            @foreach($formElements as $element)
+                                <option value="{{ $element->id }}" {{ $selectedElementId == $element->id ? 'selected' : '' }}>
+                                    {{ $element->label }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Condition</label>
+                    <select class="form-select">
+                        <option>Equals to</option>
+                        <option>Does not equal to</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Value</label>
+                    <div>
+                        @if(!empty($options))
+                      @if(in_array($selectedElement->type, ['RADIO', 'CHECKBOX', 'DROPDOWN']))
+                    @foreach($options as $option)
+                        <div>
+                            <input type="radio" name="values[]" value="{{ $option }}" {{ old('values') && in_array($option, old('values')) ? 'checked' : '' }}>
+                            <label>{{ $option }}</label>
+                        </div>
+                            @endforeach
+                        @else
+                            <input type="text" class="form-control" name="values[]" value="{{ old('values.0') }}">
+                        @endif
+                    @else
+                        <input type="text" class="form-control" name="values[]" value="">
+                    @endif
+                </div>
+            </div>
+                    <h6 class="mb-3">Do</h6>
+                    <div class="condition-options-wrapper">
+                        @include('admin.questionaries.form-groups.condition.condition-form')
+                    </div>
+                    <button class="btn btn-primary btn-save mt-3">Save</button>
+                </div>
                         </div>`;
                     $("#conditionContainer").append(newRow);
                 }
@@ -140,3 +160,4 @@
 
     </body>      
 @endsection
+
