@@ -24,7 +24,7 @@ class TestimonialController extends Controller
      */
     public function create()
     {
-        $user = User::all();
+        $user = User::where('role_id', 3)->get();
         return view('admin.testimonials.records.create', compact('user'));
     }
     /**
@@ -136,7 +136,7 @@ class TestimonialController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::all();
+        $user = User::where('role_id', 3)->get();
         $testimonial = Testimonial::findOrFail($id);
         return view('admin.testimonials.records.edit', compact('testimonial', 'user'));
     }

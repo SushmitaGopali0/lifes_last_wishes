@@ -15,7 +15,7 @@
     <div class="col-md-6">
         <div class="card-body">
             <div class="template-demo">
-                <a href="{{ route('admin.plan.index') }}"><button type="button"
+                <a href="{{ route('admin.payment-history.index') }}"><button type="button"
                         class="btn btn-light btn-rounded btn-fw">←Back</button></a>
             </div>
         </div>
@@ -26,55 +26,33 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Subscription plan view page </h4>
+                        <h4 class="card-title">Subscription member view page </h4>
                         <form class="forms-sample" method="POST" action="#">
                             @csrf
-                            <!-- Hidden fields for parent_id and type -->
-                            {{-- <input type="hidden" name="parent_id" value="{{ isset($plan) ? $plan->parent_id : '' }}" />
-                            <input type="hidden" name="type"
-                                value="{{ isset($plan) ? ($plan->type == 'Renewal' ? 'Renewal' : 'General') : 'General' }}" /> --}}
 
                             <div class="form-group">
-                                <label for="exampleInputEmail3">Parent plan</label>
+                                <label for="exampleInputEmail3">Email</label>
+                                <input type="text" class="form-control" id="exampleInputEmail3"
+                                    placeholder="Title for the Subscription" name="email"
+                                    value="{{ old('email', $paymenthistory->email) }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail3">Subscription Plan</label>
                                 <input type="text" class="form-control" id="exampleInputEmail3"
                                     placeholder="Title for the Subscription" name="title"
-                                    value="{{ optional($plan->parent)->title ?? 'None' }}" readonly>
+                                    value="{{ old('subscription_plan', $paymenthistory->subscription_plan) }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail3">Title</label>
+                                <label for="exampleInputEmail3">Amount</label>
                                 <input type="text" class="form-control" id="exampleInputEmail3"
                                     placeholder="Title for the Subscription" name="title"
-                                    value="{{ old('title', $plan->title) }}" readonly>
+                                    value="{{ old('amount', $paymenthistory->amount) }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="exampleTextarea1">Description</label>
-                                <textarea class="form-control" id="exampleTextarea1" cols="30" rows="10" name="description"
-                                    placeholder="Subscription description" readonly>{{ old('description', $plan->description) }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail3">Duration</label>
-                                <div style="display: flex; gap: 15px; align-items: center;">
-                                    <input type="number" class="form-control" id="exampleInputEmail3"
-                                        placeholder="Duration" name="duration"
-                                        value="{{ old('duration', $plan->duration_length) }}" readonly>
-                                    <div class="col-md-1 no-padding-center">
-                                        <input type="text" class="form-control" id="discount_percentage"
-                                            name="discount_percentage" value="days" readonly
-                                            style="text-align: center; font-weight: 700;">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail3">Price</label>
-                                <div style="display: flex; gap: 15px; align-items: center;">
-                                    <input type="number" class="form-control" id="exampleInputEmail3" placeholder="Price"
-                                        name="price" value="{{ old('price', $plan->price_amount) }}" readonly>
-                                    <div class="col-md-1 no-padding-center">
-                                        <input type="text" class="form-control" id="discount_percentage"
-                                            name="discount_percentage" value="AUD" readonly
-                                            style="text-align: center; font-weight: 700;">
-                                    </div>
-                                </div>
+                                <label for="exampleInputEmail3">Transaction Id</label>
+                                <input type="text" class="form-control" id="exampleInputEmail3"
+                                    placeholder="Title for the Subscription" name="title"
+                                    value="{{ old('transaction_id', $paymenthistory->transaction_id) }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="inputDescription">Status</label>
@@ -96,6 +74,18 @@
                                             <i class="input-helper"></i></label>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail3">IP Address</label>
+                                <input type="text" class="form-control" id="exampleInputEmail3"
+                                    placeholder="Title for the Subscription" name="title"
+                                    value="{{ old('ip_address', $paymenthistory->ip_address) }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail3">Payment mode</label>
+                                <input type="text" class="form-control" id="exampleInputEmail3"
+                                    placeholder="Title for the Subscription" name="title"
+                                    value="{{ old('payment_mode', $paymenthistory->payment_mode) }}" readonly>
                             </div>
                         </form>
                     </div>

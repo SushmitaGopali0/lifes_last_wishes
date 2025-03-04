@@ -16,8 +16,10 @@ return new class extends Migration
             $table->unsignedInteger('parent_id')->nullable();
             $table->string('title');
             $table->longText('description');
-            $table->unsignedInteger('duration');
-            $table->unsignedInteger('price');
+            $table->unsignedInteger('duration_length');
+            $table->string('duration_period');
+            $table->unsignedInteger('price_amount');
+            $table->string('price_currency');
             $table->string('type')->default('General');
             $table->string('status')->default('Active');
             $table->timestamps();

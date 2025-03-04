@@ -3,10 +3,10 @@
     <div class="col-md-6">
         <div class="card-body">
             <div class="template-demo">
-                <a href="{{ route('admin.plan.create') }}"><button type="button"
+                <a href="{{ route('admin.member.create') }}"><button type="button"
                         class="btn btn-primary btn-rounded btn-fw">Add
-                        Plan</button></a>
-                        <a href="{{ route('admin.plan.destroyall') }}" id="deleteAllSelectedRecord"><button type="button"
+                        Member</button></a>
+                        <a href="{{ route('admin.member.destroyall') }}" id="deleteAllSelectedRecord"><button type="button"
                             class="btn btn-danger btn-rounded btn-fw">Delete All
                             Selected </button></a>
             </div>
@@ -17,22 +17,22 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Plan Table</h4>
+                        <h4 class="card-title">Member Table</h4>
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" name="ids" class="select_all"></th>
-                                        <th>Title</th>
-                                        <th>Duration</th>
-                                        <th>Price</th>
-                                        <th>Type</th>
+                                        <th>Email</th>
+                                        <th>Subscription Plan</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($plan as $p)
+                                    {{-- @foreach ($plan as $p)
                                     <tr id="delete_id{{ $p->id }}">
                                         <td><input type="checkbox" class="checkbox_item" name="ids"
                                                 value="{{ $p->id }}"></td>
@@ -58,13 +58,13 @@
                                                 </form>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        {{ $plan->links() }}
+                        {{-- {{ $plan->links() }} --}}
                     </div>
                 </div>
             </div>

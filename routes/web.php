@@ -9,11 +9,13 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\FormElementController;
 use App\Http\Controllers\admin\FormGroupController;
+use App\Http\Controllers\admin\MemberController;
 use App\Http\Controllers\admin\NewsletterController;
 use App\Http\Controllers\admin\NewsletterSettingController;
 use App\Http\Controllers\admin\PageCategoryController;
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\PageSettingController;
+use App\Http\Controllers\admin\PaymentHistoryController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\PlanController;
 use App\Http\Controllers\admin\PostCategoryController;
@@ -157,10 +159,26 @@ Route::resource('allformelements', FormElementController::class)->names('formele
     //Plan
     Route::get('/plan', [PlanController::class, 'index'])->name('admin.plan.index');
     Route::get('/plan/create', [PlanController::class, 'create'])->name('admin.plan.create');
-    Route::post('/plan', [PlanController::class, 'store'])->name('admin.plan.store');
+    Route::post('/plan/{parent_id?}', [PlanController::class, 'store'])->name('admin.plan.store');
     Route::get('/plan/show/{id}', [PlanController::class, 'show'])->name('admin.plan.show');
     Route::get('/plan/edit/{id}', [PlanController::class, 'edit'])->name('admin.plan.edit');
     Route::put('/plan/{id}', [PlanController::class, 'update'])->name('admin.plan.update');
     Route::delete('/plan/{id}', [PlanController::class, 'destroy'])->name('admin.plan.destroy');
     Route::delete('/plan', [PlanController::class, 'destroyAll'])->name('admin.plan.destroyall');
+
+    //Member
+    Route::get('/member', [MemberController::class, 'index'])->name('admin.member.index');
+    Route::get('/member/create', [MemberController::class, 'create'])->name('admin.member.create');
+    Route::post('/member/{parent_id?}', [MemberController::class, 'store'])->name('admin.member.store');
+    Route::get('/member/show/{id}', [MemberController::class, 'show'])->name('admin.member.show');
+    Route::get('/member/edit/{id}', [MemberController::class, 'edit'])->name('admin.member.edit');
+    Route::put('/member/{id}', [MemberController::class, 'update'])->name('admin.member.update');
+    Route::delete('/member/{id}', [MemberController::class, 'destroy'])->name('admin.member.destroy');
+    Route::delete('/member', [MemberController::class, 'destroyAll'])->name('admin.member.destroyall');
+
+    //Payment History
+    Route::get('/payment-history', [PaymentHistoryController::class, 'index'])->name('admin.payment-history.index');
+    Route::get('/payment-history/show/{id}', [PaymentHistoryController::class, 'show'])->name('admin.payment-history.show');
+    Route::delete('/payment-history/{id}', [PaymentHistoryController::class, 'destroy'])->name('admin.payment-history.destroy');
+    Route::delete('/payment-history', [PaymentHistoryController::class, 'destroyAll'])->name('admin.payment-history.destroyall');
 });
