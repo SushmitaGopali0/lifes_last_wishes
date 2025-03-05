@@ -9,7 +9,6 @@
         </div>
     </div>
     <div class="content-wrapper">
-
         <div class="row">
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
@@ -30,8 +29,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Subscription Plan</label>
-                                <input type="text" class="form-control" id="exampleInputEmail3"
-                                    placeholder="Code for the Coupon" name="code" value="{{ old('code') }}">
+                                <select class="form-select" name="subscription_plan" id="subscription_plan">
+                                    <option class="form-control" selected disabled>Select Subscription Plan</option>
+                                    @foreach ($plan as $p)
+                                        <option value="{{ $p->id }}" {{ old('subscription_plan') == $p->id ? 'selected' : '' }}>
+                                            {{ ucfirst($p->title) }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Start Date</label>
@@ -49,7 +54,7 @@
                                 <div style="display: flex; gap: 15px; align-items: center;">
                                     <div class="form-check form-check-success">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="status"
+                                            <input type="radio" class="form-check-input" name="membership_status"
                                                 id="optionsRadios2" value="active" checked=""
                                                 {{ old('status') == 'active' ? 'checked' : '' }}>
                                             Active
@@ -57,7 +62,7 @@
                                     </div>
                                     <div class="form-check form-check-info">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="status"
+                                            <input type="radio" class="form-check-input" name="membership_status"
                                                 id="optionsRadios1" value="canceled"
                                                 {{ old('status') == 'canceled' ? 'checked' : '' }}>
                                             Canceled
@@ -65,7 +70,7 @@
                                     </div>
                                     <div class="form-check form-check-danger">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="status"
+                                            <input type="radio" class="form-check-input" name="membership_status"
                                                 id="optionsRadios1" value="expired"
                                                 {{ old('status') == 'expired' ? 'checked' : '' }}>
                                             Expired
@@ -73,7 +78,7 @@
                                     </div>
                                     <div class="form-check form-check-warning">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="status"
+                                            <input type="radio" class="form-check-input" name="membership_status"
                                                 id="optionsRadios1" value="pending"
                                                 {{ old('status') == 'pending' ? 'checked' : '' }}>
                                             Pending
@@ -81,14 +86,59 @@
                                     </div>
                                 </div>
                             </div>
-                            <fieldset class="border p-3">
-                                <legend class="w-auto px-2 mb-3">Payment Details:</legend>
+                            <fieldset class="border p-3 rounded">
+                                <legend class="w-auto px-2 mb-3"><h4 class="card-title">Payment Details </h4></legend>
                                 <div class="form-group">
                                     <label for="exampleInputEmail3">Amount</label>
                                     <input type="number" class="form-control" id="exampleInputEmail3"
                                         placeholder="Discount" name="amount" value="{{ old('amount') }}">
                                 </div>
-                            </fieldset>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail3">Transaction Id</label>
+                                    <input type="number" class="form-control" id="exampleInputEmail3"
+                                        placeholder="Discount" name="transaction_id" value="{{ old('transaction_id') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputDescription">Payment Status</label>
+                                    <div style="display: flex; gap: 15px; align-items: center;">
+                                        <div class="form-check form-check-warning">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="payment_status"
+                                                    id="optionsRadios2" value="pending" checked=""
+                                                    {{ old('status') == 'pending' ? 'checked' : '' }}>
+                                                Pending
+                                                <i class="input-helper"></i></label>
+                                        </div>
+                                        <div class="form-check form-check-success">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="payment_status"
+                                                    id="optionsRadios1" value="completed"
+                                                    {{ old('status') == 'completed' ? 'checked' : '' }}>
+                                                Completed
+                                                <i class="input-helper"></i></label>
+                                        </div>
+                                        <div class="form-check form-check-danger">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="payment_status"
+                                                    id="optionsRadios1" value="refunded"
+                                                    {{ old('status') == 'refunded' ? 'checked' : '' }}>
+                                                Refunded
+                                                <i class="input-helper"></i></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail3">Payment Mode</label>
+                                    <select class="form-select" name="payment_mode" id="payment_mode">
+                                        <option class="form-control" selected disabled>Select Payment Mode</option>
+                                        {{-- @foreach ($plan as $p)
+                                            <option value="{{ $p->id }}" {{ old('subscription_plan') == $p->id ? 'selected' : '' }}>
+                                                {{ ucfirst($p->title) }}
+                                            </option>
+                                        @endforeach --}}
+                                    </select>
+                                </div>
+                            </fieldset><br>
                             <button type="submit" class="btn btn-primary me-2">Create</button>
                             <button type="reset" class="btn btn-light">Reset</button>
                         </form>

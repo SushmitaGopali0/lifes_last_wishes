@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\CouponController;
+use App\Http\Controllers\admin\MediaController;
 use App\Http\Controllers\admin\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -53,17 +54,19 @@ Route::resource('allformelements', FormElementController::class)->names('formele
     //Testimonials
     Route::get('/testimonial', [TestimonialController::class, 'index'])->name('admin.testimonial.index');
     Route::get('/testimonial/create', [TestimonialController::class, 'create'])->name('admin.testimonial.create');
-    Route::get('/customized-testimonial/create', [TestimonialController::class, 'createCustomized'])->name('admin.customized-testimonial.create');
     Route::post('/testimonial', [TestimonialController::class, 'store'])->name('admin.testimonial.store');
-    Route::post('/customized-testimonial', [TestimonialController::class, 'storeCustomized'])->name('admin.customized-testimonial.store');
     Route::get('/testimonial/show/{id}', [TestimonialController::class, 'show'])->name('admin.testimonial.show');
-    Route::get('/customized-testimonial/show/{id}', [TestimonialController::class, 'showCustomized'])->name('admin.customized-testimonial.show');
     Route::get('/testimonial/edit/{id}', [TestimonialController::class, 'edit'])->name('admin.testimonial.edit');
-    Route::get('/customized-testimonial/edit/{id}', [TestimonialController::class, 'editCustomized'])->name('admin.customized-testimonial.edit');
     Route::put('/testimonial/{id}', [TestimonialController::class, 'update'])->name('admin.testimonial.update');
-    Route::put('/customized-testimonial/{id}', [TestimonialController::class, 'updateCustomized'])->name('admin.customized-testimonial.update');
     Route::delete('/testimonial/{id}', [TestimonialController::class, 'destroy'])->name('admin.testimonial.destroy');
     Route::delete('/testimonial', [TestimonialController::class, 'destroyAll'])->name('admin.testimonial.destroyall');
+
+    //Customized Testimonial
+    Route::get('/customized-testimonial/create', [TestimonialController::class, 'createCustomized'])->name('admin.customized-testimonial.create');
+    Route::post('/customized-testimonial', [TestimonialController::class, 'storeCustomized'])->name('admin.customized-testimonial.store');
+    Route::get('/customized-testimonial/show/{id}', [TestimonialController::class, 'showCustomized'])->name('admin.customized-testimonial.show');
+    Route::get('/customized-testimonial/edit/{id}', [TestimonialController::class, 'editCustomized'])->name('admin.customized-testimonial.edit');
+    Route::put('/customized-testimonial/{id}', [TestimonialController::class, 'updateCustomized'])->name('admin.customized-testimonial.update');
 
     //Newsletter
     Route::get('/newsletter', [NewsletterController::class, 'index'])->name('admin.newsletter.index');
@@ -181,4 +184,13 @@ Route::resource('allformelements', FormElementController::class)->names('formele
     Route::get('/payment-history/show/{id}', [PaymentHistoryController::class, 'show'])->name('admin.payment-history.show');
     Route::delete('/payment-history/{id}', [PaymentHistoryController::class, 'destroy'])->name('admin.payment-history.destroy');
     Route::delete('/payment-history', [PaymentHistoryController::class, 'destroyAll'])->name('admin.payment-history.destroyall');
+
+    //Media
+    Route::get('/media', [MediaController::class, 'index'])->name('admin.media.index');
+    Route::post('/media/upload', [MediaController::class, 'upload'])->name('admin.media.upload');
+    Route::post('/media/create-folder', [MediaController::class, 'createFolder'])->name('admin.media.createFolder');
+    Route::post('/media/move', [MediaController::class, 'move'])->name('admin.media.move');
+    Route::post('/media/rename', [MediaController::class, 'rename'])->name('admin.media.rename');
+    Route::delete('/media/delete', [MediaController::class, 'delete'])->name('admin.media.delete');
+
 });

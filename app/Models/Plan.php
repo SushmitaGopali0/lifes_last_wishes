@@ -13,4 +13,7 @@ class Plan extends Model
         return $this->belongsTo(Plan::class, 'parent_id');
     }
 
+    public function member(){
+        return $this->hasMany(Member::class, 'plan_id');
+    }
 }

@@ -37,7 +37,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('admin.media.index') }}">
           <i class="mdi mdi-folder-image menu-icon"></i>
           <span class="menu-title">Media</span>
         </a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class MemberController extends Controller
     public function create()
     {
         $user = User::where('role_id', 3)->get();
-        return view('admin.subscriptions.members.create', compact('user'));
+        $plan = Plan::all();
+        return view('admin.subscriptions.members.create', compact('user', 'plan'));
     }
 
     /**
