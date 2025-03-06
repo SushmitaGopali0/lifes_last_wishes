@@ -33,6 +33,7 @@ Route::get('/formgroups/{formgroup}/preview', [FormGroupController::class, 'prev
 Route::get('/formgroups/{formgroup}/condition', [FormGroupController::class, 'condition'])->name('formgroups.condition');
 Route::resource('allformelements', FormElementController::class)->names('formelements');
 Route::get('/formelements/{id}/type', [FormElementController::class, 'getElementType'])->name('formelements.type');
+Route::post('/formgroups/{formgroup}/condition/save', [FormGroupController::class, 'saveCondition'])->name('formgroups.condition.save');
 
 });
 

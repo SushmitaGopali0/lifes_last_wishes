@@ -9,7 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class FormGroup extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'status'];
+    protected $fillable = ['name', 'actions', 'status'];
+
+    protected $casts = [
+    'actions' => 'array', // Automatically cast the 'actions' column to an array
+    ];
 
     public function elements()
     {

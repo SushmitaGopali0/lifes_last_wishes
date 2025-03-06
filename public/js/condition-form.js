@@ -12,4 +12,4 @@ $(document).ready(function () {
     $(document).on("click", ".remove-option", function () {
         $(this).closest("tr").remove(); 
     });
-});
+}); 

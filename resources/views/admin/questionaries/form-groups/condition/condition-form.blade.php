@@ -18,7 +18,7 @@
                     </select>
                 </td>
                 <td>
-                    <select class="form-select element-select" name="condition_elements[]">
+                    <select class="form-select element" name="condition_elements[]">
                         <option value="" disabled selected>Select Form Element</option>
                         @foreach($formElements as $element)
                         <option value="{{ $element->id }}">{{ $element->label }}</option>
