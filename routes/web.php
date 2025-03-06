@@ -185,12 +185,5 @@ Route::resource('allformelements', FormElementController::class)->names('formele
     Route::delete('/payment-history/{id}', [PaymentHistoryController::class, 'destroy'])->name('admin.payment-history.destroy');
     Route::delete('/payment-history', [PaymentHistoryController::class, 'destroyAll'])->name('admin.payment-history.destroyall');
 
-    //Media
-    Route::get('/media', [MediaController::class, 'index'])->name('admin.media.index');
-    Route::post('/media/upload', [MediaController::class, 'upload'])->name('admin.media.upload');
-    Route::post('/media/create-folder', [MediaController::class, 'createFolder'])->name('admin.media.createFolder');
-    Route::post('/media/move', [MediaController::class, 'move'])->name('admin.media.move');
-    Route::post('/media/rename', [MediaController::class, 'rename'])->name('admin.media.rename');
-    Route::delete('/media/delete', [MediaController::class, 'delete'])->name('admin.media.delete');
-
+    
 });
