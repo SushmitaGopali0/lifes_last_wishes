@@ -65,7 +65,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail3">Tags</label>
                                 <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Tags"
-                                    name="tags" value="{{ old('tags', $post->tags) }}">
+                                    name="tags" value="{{ old('tags', $post->tags) }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Image</label>
