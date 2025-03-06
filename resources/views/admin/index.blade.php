@@ -69,7 +69,7 @@
                                         <a href="{{ route('admin.post.index') }}" style="text-decoration: none;"><i
                                                 class="mdi mdi-content-save me-3 icon-lg text-danger"></i>
                                             <div class="d-flex flex-column justify-content-around">
-                                                <small class="mb-1 text-muted">Total Post</small>
+                                                <small class="mb-1 text-muted">Total Posts</small>
                                         </a>
                                         <h5 class="me-2 mb-0">{{ $post }}</h5>
                                     </div>
@@ -79,7 +79,7 @@
                                     <a href="{{ route('admin.page.index') }}" style="text-decoration: none;"><i
                                             class="mdi mdi-book-open-page-variant me-3 icon-lg text-success"></i>
                                         <div class="d-flex flex-column justify-content-around">
-                                            <small class="mb-1 text-muted">Total Page</small>
+                                            <small class="mb-1 text-muted">Total Pages</small>
                                     </a>
                                     <h5 class="me-2 mb-0">{{ $page }}</h5>
                                 </div>
@@ -89,7 +89,7 @@
                                 <a href="{{ route('users.index') }}" style="text-decoration: none;"><i
                                         class="mdi mdi-account-circle me-3 icon-lg text-warning"></i>
                                     <div class="d-flex flex-column justify-content-around">
-                                        <small class="mb-1 text-muted">Total User</small>
+                                        <small class="mb-1 text-muted">Total Users</small>
                                 </a>
                                 <h5 class="me-2 mb-0">{{ $user }}</h5>
                             </div>
