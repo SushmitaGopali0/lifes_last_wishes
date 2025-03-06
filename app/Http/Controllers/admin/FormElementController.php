@@ -9,6 +9,16 @@ use App\Models\FormElement;
 class FormElementController extends Controller
 {
     
+    public function getElementType($id)
+    {
+        $element = FormElement::findOrFail($id);
+        $response = [
+            'type' => $element->type, //checkbox,text,radio,....
+            'options' => $element->details['options'] ?? [] // Get options from details (JSON)
+        ];
+        return response()->json($response);
+    }
+
     // Store or Update method for elements
     public function store(Request $request)
 {
