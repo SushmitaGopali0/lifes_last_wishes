@@ -75,6 +75,13 @@
     
     <body>
         <div class="container mt-4">
+
+                 @if(session('success'))
+                 <div class="alert alert-success">
+                {{ session('success') }}
+                </div>
+                @endif
+
             <h4>
                 📌 Add Conditions to Form Group ({{ $formGroup->name }})
                 <br>
