@@ -13,14 +13,75 @@ class FormGroupController extends Controller
     /**
      * Display a listing of the resource.
      */
-
+   
+     public function saveCondition(Request $request, $id)
+     {
+         $formGroup = FormGroup::findOrFail($id);
+         $triggererId = $request->input('element_select');
+         $condition = $request->input('condition');
+         $value = $request->input('value');
+         $actions = $request->input('condition_actions');
+         $elements = $request->input('condition_elements');
+         $conditionIndex = $request->input('condition_index'); // Get the condition index for updates
+     
+         $triggerer = FormElement::findOrFail($triggererId);
+         $triggererData = [
+             'type' => $triggerer->type,
+             'form_element_id' => $triggererId
+         ];
+     
+         $triggered = [];
+         foreach ($actions as $index => $action) {
+             $triggered[] = [
+                 'action' => strtolower($action),
+                 'form_element_id' => $elements[$index]
+             ];
+         }
+     
+         $actionData = [
+             'value' => $value,
+             'condition' => strtolower(str_replace(' ', '_', $condition)),
+             'triggered' => $triggered,
+             'triggerer' => $triggererData
+         ];
+     
+         // Load existing actions
+         $existingActions = $formGroup->actions ?? [];
+     
+         // If condition_index is provided, update the existing condition; otherwise, append a new one
+         if ($conditionIndex !== null && isset($existingActions[$conditionIndex])) {
+             $existingActions[$conditionIndex] = $actionData; // Update the condition
+         } else {
+             $existingActions[] = $actionData; // Add new condition
+         }
+     
+         $formGroup->actions = $existingActions;
+         $formGroup->save();
+     
+         return redirect()->route('formgroups.condition', $id)
+                          ->with('success', 'Condition saved successfully!');
+     }
+ 
      public function customize($id)
      {
          $formGroup = FormGroup::with('elements')->findOrFail($id);
          return view('admin.questionaries.form-groups.customize.index', compact('formGroup'));
      }
-     
 
+     public function preview($id)
+     {
+         $formGroup = FormGroup::with('elements')->findOrFail($id);
+         return view('admin.questionaries.form-groups.preview.index', compact('formGroup'));
+     }
+     
+     public function condition($id)
+     {
+         $formGroup = FormGroup::with('elements')->findOrFail($id);
+         $formElements = FormElement::where('form_group_id', $id)->get();
+         $savedConditions = $formGroup->actions ?? []; // Load saved conditions from the actions column
+         return view('admin.questionaries.form-groups.condition.index', compact('formGroup', 'formElements', 'savedConditions'));
+     }
+   
     public function index()
     {
     $formGroups = FormGroup::all();

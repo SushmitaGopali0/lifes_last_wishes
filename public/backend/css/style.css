@@ -19832,6 +19832,12 @@ code {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
+  /* position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 17%;
+  z-index: 100; */
+
 }
 
 .footer a {

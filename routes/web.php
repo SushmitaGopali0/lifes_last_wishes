@@ -44,7 +44,11 @@ Route::resource('allpermissions', PermissionController::class)->names('permissio
 //formgroups and formelements using resource route
 Route::resource('allformgroups', FormGroupController::class)->names('formgroups');
 Route::get('/formgroups/{formgroup}/customize', [FormGroupController::class, 'customize'])->name('formgroups.customize');
+Route::get('/formgroups/{formgroup}/preview', [FormGroupController::class, 'preview'])->name('formgroups.preview');
+Route::get('/formgroups/{formgroup}/condition', [FormGroupController::class, 'condition'])->name('formgroups.condition');
 Route::resource('allformelements', FormElementController::class)->names('formelements');
+Route::get('/formelements/{id}/type', [FormElementController::class, 'getElementType'])->name('formelements.type');
+Route::post('/formgroups/{formgroup}/condition/save', [FormGroupController::class, 'saveCondition'])->name('formgroups.condition.save');
 
 });
 
