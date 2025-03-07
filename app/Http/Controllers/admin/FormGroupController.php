@@ -22,7 +22,7 @@ class FormGroupController extends Controller
          $value = $request->input('value');
          $actions = $request->input('condition_actions');
          $elements = $request->input('condition_elements');
-         $conditionIndex = $request->input('condition_index'); // Get the condition index for updates
+         $conditionIndex = $request->input('condition_index');
      
          $triggerer = FormElement::findOrFail($triggererId);
          $triggererData = [
@@ -45,14 +45,13 @@ class FormGroupController extends Controller
              'triggerer' => $triggererData
          ];
      
-         // Load existing actions
-         $existingActions = $formGroup->actions ?? [];
-     
-         // If condition_index is provided, update the existing condition; otherwise, append a new one
+         // Ensure existingActions is always an array
+         $existingActions = is_array($formGroup->actions) ? $formGroup->actions : [];
+         
          if ($conditionIndex !== null && isset($existingActions[$conditionIndex])) {
-             $existingActions[$conditionIndex] = $actionData; // Update the condition
+             $existingActions[$conditionIndex] = $actionData;
          } else {
-             $existingActions[] = $actionData; // Add new condition
+             $existingActions[] = $actionData;
          }
      
          $formGroup->actions = $existingActions;
@@ -78,7 +77,10 @@ class FormGroupController extends Controller
      {
          $formGroup = FormGroup::with('elements')->findOrFail($id);
          $formElements = FormElement::where('form_group_id', $id)->get();
-         $savedConditions = $formGroup->actions ?? []; // Load saved conditions from the actions column
+         
+         // Ensure actions is always an array
+         $savedConditions = is_array($formGroup->actions) ? $formGroup->actions : []; //load savedcondition from action column
+         
          return view('admin.questionaries.form-groups.condition.index', compact('formGroup', 'formElements', 'savedConditions'));
      }
    

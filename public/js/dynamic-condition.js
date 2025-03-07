@@ -1,7 +1,7 @@
-// Fetch and display element type/options dynamically as checkboxes or text input
 $(document).on("change", ".condition-box .element-select", function () {
     let elementId = $(this).val();
     let valueContainer = $(this).closest(".condition-body").find(".value-container");
+    let savedValue = valueContainer.find('input[type="text"]').val() || ''; // Preserve existing value
 
     if (elementId) {
         fetch(`/admin/formelements/${elementId}/type`)
@@ -17,12 +17,11 @@ $(document).on("change", ".condition-box .element-select", function () {
                         </div>`).join(''));
                 } else {
                     valueContainer.append(`
-                        <input type="text" class="form-control" placeholder="Enter value" name="value">`);
+                        <input type="text" class="form-control" name="value[]" value="${savedValue}" placeholder="Enter value">`);
                 }
             })
             .catch(() => {
-                valueContainer.html('<label class="form-label">Value</label><input type="text" class="form-control" placeholder="Error fetching data">');
+                valueContainer.html('<label class="form-label">Value</label><input type="text" class="form-control" value="${savedValue}" placeholder="Error fetching data">');
             });
-         }
-       });
-       
+    }
+});
