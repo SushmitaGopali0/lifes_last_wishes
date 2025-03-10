@@ -1,4 +1,12 @@
 @extends('admin.layout.master')
+@push('css')
+<style>
+.code-editor{
+    min-height: 200px;
+}
+</style>
+<link rel="stylesheet" href="{{ asset('editor/codemirror.min.css') }}">
+@endpush
 @section('body')
     <div class="card-body dashboard-tabs">
         <ul class="nav nav-tabs px-4" role="tablist">
@@ -38,6 +46,8 @@
                                                         <textarea class="form-control" name="settings[{{ $setting->id }}][value]" rows="4">{{ $setting->value }}</textarea>
                                                     @elseif($setting->type == 'ck_editor')
                                                         <textarea class="ckeditor" id="editor-{{ $setting->id }}" name="settings[{{ $setting->id }}][value]">{{ $setting->value }}</textarea>
+                                                        @elseif($setting->type == 'code_editor')
+                                                        <textarea class="code-editor" id="code-editor-{{ $setting->id }}" name="settings[{{ $setting->id }}][value]">{{ $setting->value }}</textarea>
                                                     @elseif($setting->type == 'checkbox')
                                                         <input type="hidden" name="settings[{{ $setting->id }}][value]"
                                                             value="0">
@@ -145,6 +155,9 @@
                                     <option value="ck_editor" {{ old('type') == 'ck_editor' ? 'selected' : '' }}>
                                         Ckeditor
                                     </option>
+                                    <option value="code_editor" {{ old('type') == 'code_editor' ? 'selected' : '' }}>
+                                        Code Editor
+                                    </option>
                                     <option value="checkbox" {{ old('type') == 'checkbox' ? 'selected' : '' }}>Checkbox
                                     </option>
                                     <option value="radio_btn" {{ old('type') == 'radio_btn' ? 'selected' : '' }}>Radio
@@ -201,6 +214,15 @@
             document.querySelectorAll('.ckeditor').forEach(editor => {
                 CKEDITOR.replace(editor.id);
             });
+
+            // Initialize CodeMirror for all code-editor fields
+            document.querySelectorAll('.code-editor').forEach(editor => {
+                CodeMirror.fromTextArea(editor, {
+                    lineNumbers: true,
+                    mode: "javascript", // Change to required mode (html, php, etc.)
+                    theme: "default"
+                });
+            });
         });
     </script>
     <script>
@@ -231,5 +253,8 @@
             });
         });
     </script>
+    {{-- code editor --}}
+    <script src="{{ asset('editor/codemirror.min.js') }}"></script>
+    <script src="{{ asset('editor/javascript.min.js') }}"></script>
 @endpush
 

@@ -1,4 +1,18 @@
 @extends('admin.layout.master')
+@push('css')
+    <link rel="stylesheet" href="{{ asset('editor/codemirror.min.css') }}">
+    <!-- Add a better theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/dracula.min.css">
+    <style>
+        .code-editor {
+            min-height: 300px; /* Increase height to make the editor more spacious */
+            border-radius: 5px; /* Add rounded corners */
+            border: 1px solid #ccc; /* Add a border to give it a defined look */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for a better effect */
+        }
+    </style>
+@endpush
+
 @section('body')
     <div class="card-body dashboard-tabs">
         <ul class="nav nav-tabs px-4" role="tablist">
@@ -24,7 +38,8 @@
                                     @foreach ($group_settings as $setting)
                                         <div class="form-group">
                                             <div class="d-flex align-items-center mb-2">
-                                                <h4 class="me-2">{{ ucfirst(str_replace('_', ' ', $setting->name)) }}</h4>
+                                                <h4 class="me-2">{{ ucfirst(str_replace('_', ' ', $setting->name)) }}
+                                                </h4>
                                                 <code
                                                     class="badge bg-light text-danger">setting('{{ $setting->group . '.' . $setting->key }}')</code>
                                             </div>
@@ -38,6 +53,8 @@
                                                         <textarea class="form-control" name="settings[{{ $setting->id }}][value]" rows="4">{{ $setting->value }}</textarea>
                                                     @elseif($setting->type == 'ck_editor')
                                                         <textarea class="ckeditor" id="editor-{{ $setting->id }}" name="settings[{{ $setting->id }}][value]">{{ $setting->value }}</textarea>
+                                                    @elseif($setting->type == 'code_editor')
+                                                        <textarea class="code-editor" id="code-editor-{{ $setting->id }}" name="settings[{{ $setting->id }}][value]">{{ $setting->value }}</textarea>
                                                     @elseif($setting->type == 'checkbox')
                                                         <input type="hidden" name="settings[{{ $setting->id }}][value]"
                                                             value="0">
@@ -148,6 +165,9 @@
                                     <option value="ck_editor" {{ old('type') == 'ck_editor' ? 'selected' : '' }}>
                                         Ckeditor
                                     </option>
+                                    <option value="code_editor" {{ old('type') == 'code_editor' ? 'selected' : '' }}>
+                                        Code Editor
+                                    </option>
                                     <option value="checkbox" {{ old('type') == 'checkbox' ? 'selected' : '' }}>Checkbox
                                     </option>
                                     <option value="radio_btn" {{ old('type') == 'radio_btn' ? 'selected' : '' }}>Radio
@@ -234,5 +254,34 @@
             });
         });
     </script>
-@endpush
+    {{-- code editor --}}
+    <script src="{{ asset('editor/codemirror.min.js') }}"></script>
+    <script src="{{ asset('editor/javascript.min.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize CodeMirror only when the tab is activated
+            // Using Bootstrap's event listener for tab change
+            document.querySelectorAll('.nav-link').forEach(tab => {
+                tab.addEventListener('shown.bs.tab', function(e) {
+                    // Get the active tab's corresponding content
+                    let tabContentId = e.target.getAttribute('href').substring(
+                    1); // Remove the # from the id
 
+                    // Check if there's a textarea with code-editor class inside the active tab
+                    let codeEditorTextarea = document.getElementById('code-editor-' + tabContentId);
+                    if (codeEditorTextarea) {
+                        // Initialize CodeMirror only if not already initialized
+                        if (!codeEditorTextarea._codeMirror) {
+                            codeEditorTextarea._codeMirror = CodeMirror.fromTextArea(
+                                codeEditorTextarea, {
+                                    lineNumbers: true,
+                                    mode: "javascript",
+                                    theme: "default"
+                                });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
