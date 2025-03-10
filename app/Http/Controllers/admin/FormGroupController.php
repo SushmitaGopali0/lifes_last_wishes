@@ -23,35 +23,43 @@ class FormGroupController extends Controller
          $actions = $request->input('condition_actions');
          $elements = $request->input('condition_elements');
          $conditionIndex = $request->input('condition_index');
-     
-         $triggerer = FormElement::findOrFail($triggererId);
-         $triggererData = [
-             'type' => $triggerer->type,
-             'form_element_id' => $triggererId
-         ];
-     
-         $triggered = [];
-         foreach ($actions as $index => $action) {
-             $triggered[] = [
-                 'action' => strtolower($action),
-                 'form_element_id' => $elements[$index]
-             ];
-         }
-     
-         $actionData = [
-             'value' => $value,
-             'condition' => strtolower(str_replace(' ', '_', $condition)),
-             'triggered' => $triggered,
-             'triggerer' => $triggererData
-         ];
+         $deleteFlag = $request->input('delete_condition', '0'); // Default to '0' if not set
      
          // Ensure existingActions is always an array
          $existingActions = is_array($formGroup->actions) ? $formGroup->actions : [];
-         
-         if ($conditionIndex !== null && isset($existingActions[$conditionIndex])) {
-             $existingActions[$conditionIndex] = $actionData;
-         } else {
-             $existingActions[] = $actionData;
+     
+         if ($deleteFlag === '1' && $conditionIndex !== null && isset($existingActions[$conditionIndex])) {
+             // Remove the condition if marked for deletion
+             unset($existingActions[$conditionIndex]);
+             $existingActions = array_values($existingActions); // Reindex the array
+         } else if ($triggererId) {
+             // Process the condition if not deleted
+             $triggerer = FormElement::findOrFail($triggererId);
+             $triggererData = [
+                 'type' => $triggerer->type,
+                 'form_element_id' => $triggererId
+             ];
+     
+             $triggered = [];
+             foreach ($actions as $index => $action) {
+                 $triggered[] = [
+                     'action' => strtolower($action),
+                     'form_element_id' => $elements[$index]
+                 ];
+             }
+     
+             $actionData = [
+                 'value' => $value,
+                 'condition' => strtolower(str_replace(' ', '_', $condition)),
+                 'triggered' => $triggered,
+                 'triggerer' => $triggererData
+             ];
+     
+             if ($conditionIndex !== null && isset($existingActions[$conditionIndex])) {
+                 $existingActions[$conditionIndex] = $actionData;
+             } else {
+                 $existingActions[] = $actionData;
+             }
          }
      
          $formGroup->actions = $existingActions;

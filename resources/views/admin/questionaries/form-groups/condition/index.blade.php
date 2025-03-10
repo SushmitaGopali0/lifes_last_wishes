@@ -75,13 +75,13 @@
     
     <body>
         <div class="container mt-4">
-
-                 @if(session('success'))
-                 <div class="alert alert-success">
+    
+            @if(session('success'))
+            <div class="alert alert-success">
                 {{ session('success') }}
-                </div>
-                @endif
-
+            </div>
+            @endif
+    
             <h4>
                 📌 Add Conditions to Form Group ({{ $formGroup->name }})
                 <br>
@@ -93,9 +93,10 @@
                 @if(is_array($savedConditions) && !empty($savedConditions))
                     @foreach($savedConditions as $index => $condition)
                         <div class="condition-box border shadow-sm" id="condition-{{ $index + 1 }}">
-                            <form action="{{ route('formgroups.condition.save', $formGroup->id) }}" method="POST">
+                            <form action="{{ route('formgroups.condition.save', $formGroup->id) }}" method="POST" class="condition-form">
                                 @csrf
                                 <input type="hidden" name="condition_index" value="{{ $index }}">
+                                <input type="hidden" name="delete_condition" value="0" class="delete-flag">
                                 <div class="condition-header">
                                     <h5>Condition {{ $index + 1 }}</h5>
                                     <span class="dropdown-arrow toggleArrow">🔽</span>
@@ -114,7 +115,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-            
+    
                                     <div class="mb-3">
                                         <label class="form-label">Condition</label>
                                         <select class="form-select" name="condition">
@@ -122,7 +123,7 @@
                                             <option value="does not equal to" {{ $condition['condition'] == 'does_not_equal' ? 'selected' : '' }}>Does not equal to</option>
                                         </select>
                                     </div>
-            
+    
                                     <div class="mb-3 value-container">
                                         <label class="form-label">Value</label>
                                         @if(in_array($condition['triggerer']['type'], ['RADIO', 'CHECKBOX', 'DROPDOWN']))
@@ -179,14 +180,18 @@
                                             <center><button type="button" class="btn btn-success add-condition-option">+</button></center>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-save mt-3">Save</button>
                                 </div>
                             </form>
                         </div>
                     @endforeach
                 @endif
             </div>
+    
+            <!-- Single Save Button Outside -->
+            <div class="text-end mt-3">
+                <button type="button" class="btn btn-primary" id="saveAllConditions">Save</button>
             </div>
+        </div>
     
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
@@ -197,8 +202,10 @@
                     conditionCount++;
                     let newRow = `
                         <div class="condition-box border shadow-sm" id="condition-${conditionCount}">
-                            <form action="{{ route('formgroups.condition.save', $formGroup->id) }}" method="POST">
+                            <form action="{{ route('formgroups.condition.save', $formGroup->id) }}" method="POST" class="condition-form">
                                 @csrf
+                                <input type="hidden" name="condition_index" value="${conditionCount - 1}">
+                                <input type="hidden" name="delete_condition" value="0" class="delete-flag">
                                 <div class="condition-header">
                                     <h5>Condition ${conditionCount}</h5>
                                     <span class="dropdown-arrow toggleArrow">🔽</span>
@@ -233,7 +240,6 @@
                                     <div class="condition-options-wrapper">
                                         @include('admin.questionaries.form-groups.condition.condition-form')
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-save mt-3">Save</button>
                                 </div>
                             </form>
                         </div>`;
@@ -248,8 +254,18 @@
                     $(this).closest(".condition-box").find(".condition-body").slideToggle();
                 });
     
+                // Mark condition for deletion when remove button is clicked
                 $(document).on("click", ".remove-condition", function () {
-                    $(this).closest(".condition-box").remove();
+                    const $form = $(this).closest(".condition-form");
+                    $form.find(".delete-flag").val("1"); 
+                    $form.closest(".condition-box").hide();
+                });
+    
+                // Save all conditions when the single Save button is clicked
+                $("#saveAllConditions").click(function () {
+                    $(".condition-form").each(function () {
+                        $(this).submit(); 
+                    });
                 });
             });
         </script>
@@ -258,4 +274,3 @@
         <script src="{{ asset('js/dynamic-condition.js') }}"></script>
     </body>
 @endsection
-
